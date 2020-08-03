@@ -25,7 +25,7 @@ module.exports = function (env, options) {
         module: {
             rules: [
                 {
-                    test: /.\jsx$/,
+                    test: /.(js|jsx)$/,
                     exclude: /node_modules/,
                     use: [
                         { loader: "babel-loader" }
@@ -57,7 +57,7 @@ module.exports = function (env, options) {
             minimize: true,
             minimizer: [
               new TerserPlugin({
-                test: /.\js$/,
+                test: /.(js|jsx)$/,
               }),
               new OptimizeCSSAssetsPlugin({}),
             ],
