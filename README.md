@@ -12,4 +12,4 @@ npm test                        // for start test
 npm start                       // for start wepback-dev-server and dev build
 
 
-Open in browser localhost:9000
+Open in browser localhost:8986
