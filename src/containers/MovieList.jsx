@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from '../components/Tabs';
-import MovieFilter from '../components/MovieFilter';
+import MovieFilter from '../components/MovieFilterWrapper';
 import Movie from '../components/Movie';
 import ErrorBoundary from './ErrorBoundary';
 
