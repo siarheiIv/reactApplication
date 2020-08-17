@@ -1,0 +1,40 @@
+.movie-search {
+    h1 {
+        font-size: 3rem;
+        font-weight: 300;
+        color: $color-light;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+}
+
+.movie-search__input {
+    min-width: 630px;
+    background-color: $color-grey-dark;
+    opacity: 0.5;
+    padding: 10px 20px;
+    margin-right: 20px;
+    border: none;
+    border-bottom: 3px solid $color-brand;
+    color: $color-light;
+    font-weight: 700;
+    outline: none;
+}
+
+.movie-search__buttons-line {
+    display: flex;
+    justify-content: center;
+    color: $color-light;
+    font-weight: 700;
+}
+
+.movie-search__buttons {
+    .button {
+        margin-left: 10px;
+        padding: 5px 20px;
+        background-color: $color-grey-dark;
+        &_active {
+            background-color: $color-brand;
+        }
+    }
+}
