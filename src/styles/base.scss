@@ -1,0 +1,24 @@
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1.6rem;
+    color: $color-light;
+}
+
+main {
+    background-image: url('./img/wp2902991.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.wrapper {
+    max-width: 1170px;
+    margin: auto;
+    &_error {
+        text-align: center;
+    }
+}
