@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import movie from '../styles/movie.scss';
 
 const Movie = (props) => {
     const { description } = props;

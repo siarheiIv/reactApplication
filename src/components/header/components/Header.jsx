@@ -1,5 +1,6 @@
 import React from 'react';
-import SearchBar from '../components/SearchBar';
+import SearchBar from './SearchBar';
+import header from '../styles/header.scss';
 
 const Header = () => {
     return(

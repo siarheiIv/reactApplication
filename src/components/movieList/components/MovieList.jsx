@@ -1,8 +1,10 @@
 import React from 'react';
-import Tabs from '../components/Tabs';
-import MovieFilter from '../components/MovieFilterWrapper';
-import Movie from '../components/Movie';
-import ErrorBoundary from './ErrorBoundary';
+import Tabs from '../../movieTabs/index';
+import MovieFilter from '../../movieFilter/components/MovieFilterWrapper';
+import Movie from './Movie';
+import CheckMovie from '../../common/CheckMovie';
+import movie_founded from '../styles/movie_founded.scss';
+import movies_list from '../styles/movies_list';
 
 const MovieList = () => {
 
@@ -11,7 +13,7 @@ const MovieList = () => {
     return(
         <main>
             <div className="wrapper">
-                <ErrorBoundary>
+                <CheckMovie>
                     <div className="sort-line">
                         <Tabs />
                         <MovieFilter />
@@ -27,7 +29,7 @@ const MovieList = () => {
                     {/* <div className="no-movies">
                         <p className="no-movies__title">No films found</p>
                     </div> */}
-                </ErrorBoundary>
+                </CheckMovie>
             </div>
         </main> 
     )
