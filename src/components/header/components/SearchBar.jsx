@@ -1,4 +1,5 @@
 import React from 'react';
+import movie_search from '../styles/movie_search.scss'
 
 const SearchBar = () => {
     return(
