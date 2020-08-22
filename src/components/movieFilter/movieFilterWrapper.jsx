@@ -1,6 +1,6 @@
 import React from 'react';
-import MovieFilter from './MovieFilter';
-import sort_line from '../sort_line.scss';
+import MovieFilter from './components/movieFilter';
+import sort_line from './sort_line';
 
 const MovieFilterWrapper = () => {
     return(

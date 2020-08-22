@@ -1,2 +1,2 @@
-import MovieList from './components/MovieList';
+import MovieList from './movieList';
 export default MovieList;

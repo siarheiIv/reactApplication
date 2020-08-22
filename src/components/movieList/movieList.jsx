@@ -1,10 +1,10 @@
 import React from 'react';
-import Tabs from '../../movieTabs/index';
-import MovieFilter from '../../movieFilter/components/MovieFilterWrapper';
-import Movie from './Movie';
-import CheckMovie from '../../common/CheckMovie';
-import movie_founded from '../styles/movie_founded.scss';
-import movies_list from '../styles/movies_list';
+import Tabs from '../movieTabs/index';
+import MovieFilter from '../movieFilter/movieFilterWrapper';
+import Movie from './components/Movie';
+import CheckMovie from '../common/index';
+import movie_founded from './styles/movie_founded';
+import movies_list from './movies_list';
 
 const MovieList = () => {
 

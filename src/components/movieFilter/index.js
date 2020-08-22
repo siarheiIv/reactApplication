@@ -1,2 +1,2 @@
-import MovieFilterWrapper from './components/MovieFilterWrapper';
+import MovieFilterWrapper from './movieFilterWrapper';
 export default MovieFilterWrapper;
