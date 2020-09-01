@@ -7,7 +7,7 @@ const HomePage = () => {
     return(
         <div>
             <Header />
-                <MovieList />
+            <MovieList />
             <Footer />
         </div>
     )

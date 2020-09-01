@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import movie from '../styles/movie';
+import EditMovie from '../editMovie/index';
+import movie from './movie.scss';
 
 const Movie = (props) => {
     const { description } = props;
     return(
             <article className="movie">
                 <img src={description.img} alt="" className="movie__image" />
+                    <EditMovie />
                     <div className="movie__description">
                         <div>
                             <h2 className="movie__title">{description.title}</h2>

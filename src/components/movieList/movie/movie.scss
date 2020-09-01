@@ -3,8 +3,9 @@
 
 .movie {
     width: 30%;
+    position: relative;
     margin-bottom: 40px;
-    cursor: pointer;
+    
     &:hover {
         .movie__year {
             background-color: $color-brand;
@@ -53,4 +54,5 @@
     border: 1px solid $color-grey-dark;
     padding: 3px 5px;
     transition: .3s;
+    cursor: pointer;
 }
