@@ -18,10 +18,9 @@ class EditMovieMenu extends React.Component {
         })
     }
 
-    handleBlur = (e) => {
-        this.setState({ isModalOpen: false });
-        console.log()
-    }
+    // handleBlur = (e) => {
+    //     this.setState({ isModalOpen: false });
+    // }
 
     // handleClickOutside = (e) => {
     //     if (!this.node.contains(e.target)) {
@@ -30,7 +29,7 @@ class EditMovieMenu extends React.Component {
     // }
 
     render() {
-        const { handleClick } = this.props;
+        const { handleClick, description } = this.props;
         const { editModal, deleteModal } = this.state;
         return (
             <React.Fragment>
@@ -45,7 +44,7 @@ class EditMovieMenu extends React.Component {
                         </div>
                     </div>)
                 }
-                {editModal && <EditMovieModal handleClick={handleClick} />}
+                {editModal && <EditMovieModal handleClick={handleClick} description={description} />}
                 {deleteModal && <DeleteMovieModal handleClick={handleClick} />}
             </React.Fragment>
         )

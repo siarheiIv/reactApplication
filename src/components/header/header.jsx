@@ -1,12 +1,12 @@
 import React from 'react';
 import SearchBar from './searchBar/searchBar';
-import NewMovieModal from './newMovieModal/index';
+import EditMovieModal from '../movieList/editMovieModal/index';
 import header from './header.scss';
 
-class Header extends React.Component{
+class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             isModalOpen: false,
         }
     }
@@ -19,7 +19,7 @@ class Header extends React.Component{
 
     render() {
         const { isModalOpen } = this.state;
-        return(
+        return (
             <React.Fragment>
                 <header className="header">
                     <div className="wrapper">
@@ -30,8 +30,8 @@ class Header extends React.Component{
                         <SearchBar />
                     </div>
                 </header>
-                {isModalOpen && <NewMovieModal handleClick={this.handleClick} />}
-            </React.Fragment>       
+                {isModalOpen && <EditMovieModal handleClick={this.handleClick} />}
+            </React.Fragment>
         )
     }
 }

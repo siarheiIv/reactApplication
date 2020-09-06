@@ -5,13 +5,13 @@ import button from '../../styles/button.scss';
 const ModalHOC = (WrappedComponent) => {
     return class newMovieModal extends React.Component {
         render() {
-            const { handleClick } = this.props;
+            const { handleClick, description } = this.props;
             return (
                 <div className="modal_overlay">
                     <div className="modal_body">
                         <div className="modal-close" onClick={handleClick}></div>
                         <div className="modal_wrapper">
-                            <WrappedComponent />
+                            <WrappedComponent description={description} handleClick={handleClick} />
                         </div>
                     </div>
                 </div>

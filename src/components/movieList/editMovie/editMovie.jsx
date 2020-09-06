@@ -18,12 +18,13 @@ class EditMovie extends React.Component {
 
     render() {
         const { isModalOpen } = this.state;
+        const { description } = this.props;
         return (
             <React.Fragment>
                 <div className="movie_edit" onClick={this.handleClick} >
                     <span></span>
                 </div>
-                {isModalOpen && <EditMovieMenu handleClick={this.handleClick} />}
+                {isModalOpen && <EditMovieMenu handleClick={this.handleClick} description={description} />}
             </React.Fragment>
         )
     }
