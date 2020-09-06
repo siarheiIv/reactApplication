@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import Header from '../components/header/index';
 import Footer from '../components/footer/index';
 import MovieList from '../components/movieList/index';
@@ -20,7 +21,7 @@ class HomePage extends React.Component {
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bohemian Rapsody', year: '2000-11-11', type: 'Crime', runtime: '2:01:15', id: 0 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Avatar', year: '2010-12-11', type: 'Documentary', runtime: '2:11:55', id: 1 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Sex and the City', year: '2003-09-10', type: 'Comedy', runtime: '1:47:01', id: 2 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998=02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
+                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998-02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bride Wars', year: '2012-12-01', type: 'Comedy', runtime: '2:14:07', id: 4 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Like a boss', year: '2018-03-08', type: 'Crime', runtime: '1:31:47', id: 5 }
             ],
@@ -28,7 +29,7 @@ class HomePage extends React.Component {
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bohemian Rapsody', year: '2000-11-11', type: 'Crime', runtime: '2:01:15', id: 0 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Avatar', year: '2010-12-11', type: 'Documentary', runtime: '2:11:55', id: 1 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Sex and the City', year: '2003-09-10', type: 'Comedy', runtime: '1:47:01', id: 2 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998=02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
+                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998-02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bride Wars', year: '2012-12-01', type: 'Comedy', runtime: '2:14:07', id: 4 },
                 { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Like a boss', year: '2018-03-08', type: 'Crime', runtime: '1:31:47', id: 5 }
             ],
@@ -48,7 +49,9 @@ class HomePage extends React.Component {
     }
 
     sortFilmsByYear = (films) => {
-        return films.sort((a, b) => a.year - b.year);
+        return films.sort(function (a, b) {
+            return moment(b.year) - moment(a.year);
+        });
     }
 
     sortFilmsByGenre = (films) => {
