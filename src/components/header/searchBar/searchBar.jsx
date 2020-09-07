@@ -1,4 +1,5 @@
 import React from 'react';
+import movie_search from './search_bar.scss';
 
 const SearchBar = () => {
     return(
