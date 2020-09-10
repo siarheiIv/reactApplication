@@ -4,9 +4,9 @@ import EditMovie from '../editMovie/index';
 import movie from './movie.scss';
 
 const Movie = (props) => {
-    const { description } = props;
+    const { description, openDetailsPage } = props;
     return (
-        <article className="movie">
+        <article className="movie" onClick={() => openDetailsPage(description)}>
             <img src={description.img} alt="" className="movie__image" />
             <EditMovie description={description} />
             <div className="movie__description">

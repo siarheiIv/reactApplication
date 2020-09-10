@@ -1,33 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EditMovieMenu from '../editMovieMenu/index';
 import movie_edit from './movie_edit.scss';
 
-class EditMovie extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isModalOpen: false,
-        }
+const EditMovie = (props) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const handleClick = () => {
+        setIsModalOpen(!isModalOpen);
     }
 
-    handleClick = () => {
-        this.setState({
-            isModalOpen: !this.state.isModalOpen,
-        })
-    }
-
-    render() {
-        const { isModalOpen } = this.state;
-        const { description } = this.props;
-        return (
-            <React.Fragment>
-                <div className="movie_edit" onClick={this.handleClick} >
-                    <span></span>
-                </div>
-                {isModalOpen && <EditMovieMenu handleClick={this.handleClick} description={description} />}
-            </React.Fragment>
-        )
-    }
+    const { description } = props;
+    return (
+        <React.Fragment>
+            <div className="movie_edit" onClick={handleClick} >
+                <span></span>
+            </div>
+            {isModalOpen && <EditMovieMenu handleClick={handleClick} description={description} />}
+        </React.Fragment>
+    )
 }
 
 export default EditMovie;

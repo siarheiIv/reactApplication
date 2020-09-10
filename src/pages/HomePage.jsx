@@ -1,42 +1,32 @@
-import React from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import moment from 'moment';
 import Header from '../components/header/index';
 import Footer from '../components/footer/index';
+import MovieDetails from '../components/movieDetails/index';
 import MovieList from '../components/movieList/index';
 
-class HomePage extends React.Component {
-    constructor(props) {
-        super(props)
+const HomePage = () => {
+    const [filmList, setFilmList] = useState([]);
+    const [defaultList, setDefaultList] = useState([]);
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    const [isDetailsPage, setDetailsPage] = useState(false);
+    const [currentMovie, setCurrentMovie] = useState({});
 
-        this.state = {
-            filmList: [],
-            defaultList: [],
-            selectedTabIndex: 0,
-        }
-    }
+    const defaultValues = [
+        { img: 'https://images-na.ssl-images-amazon.com/images/I/91Ph%2BuTyyxL._AC_SL1500_.jpg', title: 'Bohemian Rhapsody', year: '2000-11-11', type: 'Crime', runtime: '98', id: 0 },
+        { img: 'https://images-na.ssl-images-amazon.com/images/I/61jFTTf9RBL._AC_SL1230_.jpg', title: 'Avatar', year: '2010-12-11', type: 'Documentary', runtime: '120', id: 1 },
+        { img: 'https://images-na.ssl-images-amazon.com/images/I/71e3V2Z%2BLjL._AC_SL1125_.jpg', title: 'Sex and the City', year: '2003-09-10', type: 'Comedy', runtime: '107', id: 2 },
+        { img: 'https://images-na.ssl-images-amazon.com/images/I/81FVRb43H6L._AC_SY606_.jpg', title: 'Monster House', year: '1998-02-10', type: 'Horror', runtime: '103', id: 3 },
+        { img: 'https://www.joblo.com/assets/images/oldsite/posters/images/full/2009-bride_wars-3.jpg', title: 'Bride Wars', year: '112', type: 'Comedy', runtime: '2:14:07', id: 4 },
+        { img: 'https://image.posterlounge.com/images/big/1876082.jpg', title: 'The Godfather', year: '1972-03-08', type: 'Crime', runtime: '96', id: 5 }
+    ];
 
-    componentDidMount() {
-        this.setState({
-            filmList: [
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bohemian Rapsody', year: '2000-11-11', type: 'Crime', runtime: '2:01:15', id: 0 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Avatar', year: '2010-12-11', type: 'Documentary', runtime: '2:11:55', id: 1 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Sex and the City', year: '2003-09-10', type: 'Comedy', runtime: '1:47:01', id: 2 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998-02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bride Wars', year: '2012-12-01', type: 'Comedy', runtime: '2:14:07', id: 4 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Like a boss', year: '2018-03-08', type: 'Crime', runtime: '1:31:47', id: 5 }
-            ],
-            defaultList: [
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bohemian Rapsody', year: '2000-11-11', type: 'Crime', runtime: '2:01:15', id: 0 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Avatar', year: '2010-12-11', type: 'Documentary', runtime: '2:11:55', id: 1 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Sex and the City', year: '2003-09-10', type: 'Comedy', runtime: '1:47:01', id: 2 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'The Grinch', year: '1998-02-10', type: 'Horror', runtime: '2:09:30', id: 3 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Bride Wars', year: '2012-12-01', type: 'Comedy', runtime: '2:14:07', id: 4 },
-                { img: 'https://via.placeholder.com/300x400.jpg?text=Movie%20Cover', title: 'Like a boss', year: '2018-03-08', type: 'Crime', runtime: '1:31:47', id: 5 }
-            ],
-        })
-    }
+    useEffect(() => {
+        setFilmList(defaultValues);
+        setDefaultList(defaultValues);
+    }, [])
 
-    sortByTabClick = (e, films) => {
+    const sortByTabClick = (e, films) => {
         if (e.target.dataset.tab === 'all') {
             return films;
         } else {
@@ -44,59 +34,56 @@ class HomePage extends React.Component {
         }
     }
 
-    sortFilmsByName = (films) => {
+    const sortFilmsByName = (films) => {
         return films.sort((a, b) => { return (a.title > b.title) ? 1 : (a.title < b.title) ? -1 : 0 });
     }
 
-    sortFilmsByYear = (films) => {
+    const sortFilmsByYear = (films) => {
         return films.sort(function (a, b) {
             return moment(b.year) - moment(a.year);
         });
     }
 
-    sortFilmsByGenre = (films) => {
-        this.setState({
-            filmList: films,
-        })
+    const sortFilmsByGenre = (films) => {
+        setFilmList(films);
     }
 
-    handleTabClick = (e, index) => {
-        const { defaultList, filmList } = this.state;
-        this.setState({
-            selectedTabIndex: index,
-            // filmList: defaultList,
-        })
-        this.sortFilmsByGenre(this.sortByTabClick(e, defaultList));
+    const handleTabClick = (e, index) => {
+        setSelectedTabIndex(index);
+        sortFilmsByGenre(sortByTabClick(e, defaultList));
     }
 
-    handleChange = (e) => {
-        const { filmList } = this.state;
+    const handleChange = (e) => {
         if (e.target.options[e.target.selectedIndex].value === 'name') {
-            this.setState({
-                filmList: this.sortFilmsByName(filmList)
-            })
+            setFilmList(sortFilmsByName(filmList))
         } else {
-            this.setState({
-                filmList: this.sortFilmsByYear(filmList)
-            })
+            setFilmList(sortFilmsByYear(filmList))
         }
     }
 
-    render() {
-        const { filmList, defaultList, selectedTabIndex } = this.state;
-        return (
-            <div>
-                <Header />
-                <MovieList
-                    filmList={filmList}
-                    handleChange={this.handleChange}
-                    handleTabClick={this.handleTabClick}
-                    selectedTabIndex={selectedTabIndex}
-                />
-                <Footer />
-            </div>
-        )
+    const openDetailsPage = (description) => {
+        setDetailsPage(true);
+        setCurrentMovie(description);
     }
+
+    const closeDetailsPage = () => {
+        setDetailsPage(false);
+    }
+
+    return (
+        <Fragment>
+            {!isDetailsPage && <Header />}
+            {isDetailsPage && <MovieDetails currentMovie={currentMovie} closeDetailsPage={closeDetailsPage} />}
+            <MovieList
+                filmList={filmList}
+                handleChange={handleChange}
+                handleTabClick={handleTabClick}
+                openDetailsPage={openDetailsPage}
+                selectedTabIndex={selectedTabIndex}
+            />
+            <Footer />
+        </Fragment>
+    )
 }
 
 export default HomePage;

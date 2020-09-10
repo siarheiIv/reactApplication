@@ -1,42 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class Tabs extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tabs: [
-                { title: 'All', attribute: 'all' },
-                { title: 'Documentary', attribute: 'documentary' },
-                { title: 'Comedy', attribute: 'comedy' },
-                { title: 'Horror', attribute: 'horror' },
-                { title: 'Crime', attribute: 'crime' },
-            ],
-        }
-    }
+const Tabs = (props) => {
+    const [tabs, setTabs] = useState(
+        [
+            { title: 'All', attribute: 'all' },
+            { title: 'Documentary', attribute: 'documentary' },
+            { title: 'Comedy', attribute: 'comedy' },
+            { title: 'Horror', attribute: 'horror' },
+            { title: 'Crime', attribute: 'crime' },
+        ]
+    );
+    const { selectedTabIndex, handleTabClick } = props;
 
-    render() {
-        const { tabs } = this.state;
-        const { selectedTabIndex, handleTabClick } = this.props;
+    return (
+        <ul>
+            {
+                tabs.map((tab, i) => {
+                    return (
+                        <li
+                            key={tab.title}
+                            dangerouslySetInnerHTML={{ __html: tab.title }}
+                            onClick={(e) => handleTabClick(e, i)}
+                            className={i === selectedTabIndex ? 'active' : ''}
+                            data-tab={tab.attribute}
 
-        return (
-            <ul>
-                {
-                    tabs.map((tab, i) => {
-                        return (
-                            <li
-                                key={tab.title}
-                                dangerouslySetInnerHTML={{ __html: tab.title }}
-                                onClick={(e) => handleTabClick(e, i)}
-                                className={i === selectedTabIndex ? 'active' : ''}
-                                data-tab={tab.attribute}
-
-                            />
-                        )
-                    })
-                }
-            </ul>
-        )
-    }
+                        />
+                    )
+                })
+            }
+        </ul>
+    )
 }
 
 export default Tabs;
