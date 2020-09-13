@@ -64,7 +64,7 @@ module.exports = function (env, options) {
     devServer: {
       contentBase: path.join(__dirname, "dist"),
       open: true,
-      port: 8996,
+      port: 8997,
     },
     watch: true,
     optimization: isProd ? {

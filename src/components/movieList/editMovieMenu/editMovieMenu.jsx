@@ -9,12 +9,19 @@ const EditMovieMenu = (props) => {
 
     const handleSelect = (e) => {
         if (e.target.dataset.name === "editModal") {
-            setEditModal(true);
+            setEditModal(!editModal);
         } else {
             setDeleteModal(true);
         }
 
     }
+
+    // const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    // const handleClick = () => {
+    //     setIsModalOpen(!isModalOpen);
+    // }
 
     const { handleClick, description } = props;
 

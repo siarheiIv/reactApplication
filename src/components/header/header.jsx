@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import SearchBar from './searchBar/searchBar';
 import EditMovieModal from '../movieList/editMovieModal/index';
 import header from './header.scss';
@@ -6,9 +6,9 @@ import header from './header.scss';
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         setIsModalOpen(!isModalOpen);
-    }
+    }, [isModalOpen])
 
     return (
         <React.Fragment>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import modal_movie from '../../styles/modal_movie.scss';
 import button from '../../styles/button.scss';
 
@@ -6,6 +6,7 @@ const ModalHOC = (WrappedComponent) => {
 
     return function newMovieModal(props) {
         const modalRef = useRef('');
+        const { handleClick, description } = props;
         const closeModal = (e) => {
             if (modalRef.current.contains(e.target)) {
                 return;
@@ -13,7 +14,7 @@ const ModalHOC = (WrappedComponent) => {
                 handleClick();
             }
         }
-        const { handleClick, description } = props;
+
         return (
             <div className="modal_overlay" onClick={(e) => closeModal(e)}>
                 <div ref={modalRef} className="modal_body">
