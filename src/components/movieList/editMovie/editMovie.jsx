@@ -17,7 +17,7 @@ const EditMovie = (props) => {
             setValue(!value);
         }
         return [value, toggle];
-    }
+    };
 
     const [isModalOpen, setIsModalOpen] = useToggle(false);
 

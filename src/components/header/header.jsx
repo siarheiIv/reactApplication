@@ -8,7 +8,7 @@ const Header = () => {
 
     const handleClick = useCallback(() => {
         setIsModalOpen(!isModalOpen);
-    }, [isModalOpen])
+    }, [isModalOpen]);
 
     return (
         <React.Fragment>

@@ -15,11 +15,11 @@ const EditMovieModal = (props) => {
 
     const handleChangeSelect = (e) => {
         setGenres([...e.target.value]);
-    }
+    };
 
     const handleChange = (e) => {
         setDate(e.target.value);
-    }
+    };
 
     const { description, classes, handleClick } = props;
 

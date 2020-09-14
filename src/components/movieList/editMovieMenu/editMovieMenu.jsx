@@ -14,7 +14,7 @@ const EditMovieMenu = (props) => {
             setDeleteModal(true);
         }
 
-    }
+    };
 
     // const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -33,7 +33,7 @@ const HomePage = () => {
         } else if (sortBy === 'date') {
             setFilmList(filmList)
         }
-    }, [sortBy])
+    }, [sortBy]);
 
     const sortByTabClick = (e, films) => {
         if (e.target.dataset.tab === 'all') {
@@ -41,37 +41,36 @@ const HomePage = () => {
         } else {
             return films.filter(film => film.type.toLowerCase() === e.target.dataset.tab);
         }
-    }
+    };
 
     const sortFilmsByName = (films) => {
         return films.sort((a, b) => { return (a.title > b.title) ? 1 : (a.title < b.title) ? -1 : 0 });
-    }
+    };
 
     const sortFilmsByYear = (films) => {
         return films.sort((a, b) => {
             return moment(b.year) - moment(a.year);
         });
-    }
+    };
 
     const sortFilmsByGenre = (films) => {
         setFilmList(films);
-    }
+    };
 
     const handleTabClick = (e, index) => {
         setSelectedTabIndex(index);
         sortFilmsByGenre(sortByTabClick(e, defaultList));
-    }
+    };
 
     const handleChange = (e) => {
         if (e.target.options[e.target.selectedIndex].value === 'name') {
             setSortBy('name');
             sortFilmsByName(filmList)
-            console.log(filmList);
         } else if (e.target.options[e.target.selectedIndex].value === 'date') {
             setSortBy('date');
             sortFilmsByYear(filmList)
         }
-    }
+    };
 
     const openDetailsPage = (description) => {
         setDetailsPage(true);
@@ -80,7 +79,7 @@ const HomePage = () => {
 
     const closeDetailsPage = () => {
         setDetailsPage(false);
-    }
+    };
 
     return (
         <Fragment>
