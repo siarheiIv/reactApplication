@@ -1,0 +1,51 @@
+@import '../../styles/variables.scss';
+@import '../../styles/base.scss';
+@import '../../styles/normalize.scss';
+
+.sort-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    ul {
+        display: flex;
+        list-style: none;
+
+        li {
+        margin-right: 20px;
+        cursor: pointer;
+
+        &:hover{
+            transform: scale(1.1);
+        }
+        }
+
+        .active {
+            border-bottom: 4px solid $color-brand;
+            transform: scale(1.1);
+        }
+    }
+
+    .wrapper {
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.sort-line__selectors {
+    .button_minimal {
+        margin-left: 20px;
+    }
+}
+
+.film-sorting{
+    padding: 5px 10px;
+    background-color: #212121;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+}

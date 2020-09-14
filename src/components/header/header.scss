@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+@import '../../styles/base.scss';
+@import '../../styles/normalize.scss';
+@import '../../styles/button.scss';
+@import '../../styles/logo.scss';
+
+.header {
+    background-color: #1d1d1d;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px 0 40px 0;
+}
+
+.header-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}

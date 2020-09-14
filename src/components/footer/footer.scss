@@ -1,0 +1,10 @@
+@import '../../styles/variables.scss';
+@import '../../styles/base.scss';
+@import '../../styles/normalize.scss';
+@import '../../styles/logo.scss';
+
+.footer {
+    background-color: $color-text;
+    padding: 20px 0;
+    color: $color-light;
+}
