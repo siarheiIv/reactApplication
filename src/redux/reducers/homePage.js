@@ -4,7 +4,7 @@ const initialState = {
     data: [],
 };
 
-const allFilms = (state = initialState, action) => {
+const homePage = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_FILMS:
             return { ...state, data: action.payload };
@@ -13,5 +13,5 @@ const allFilms = (state = initialState, action) => {
     }
 };
 
-export default allFilms;
+export default homePage;
 

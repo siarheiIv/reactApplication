@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
-import { store, initialState } from '../redux/store';
-import { getAllFilms } from '../redux/actions';
-import Header from '../components/header/index';
-import Footer from '../components/footer/index';
-import MovieDetails from '../components/movieDetails/index';
-import MovieList from '../components/movieList/index';
+import { store, initialState } from '../../redux/store';
+import { getAllFilms } from '../../redux/actions';
+import Header from '../../components/header/index';
+import Footer from '../../components/footer/index';
+import MovieDetails from '../../components/movieDetails/index';
+import MovieList from '../../components/movieList/index';
 
 const defaultValues = [
     { img: 'https://images-na.ssl-images-amazon.com/images/I/91Ph%2BuTyyxL._AC_SL1500_.jpg', title: 'Bohemian Rhapsody', year: '2000-11-11', type: 'Crime', runtime: '98', id: 0 },
@@ -15,6 +16,12 @@ const defaultValues = [
     { img: 'https://www.joblo.com/assets/images/oldsite/posters/images/full/2009-bride_wars-3.jpg', title: 'Bride Wars', year: '2012-08-10', type: 'Comedy', runtime: '99', id: 4 },
     { img: 'https://image.posterlounge.com/images/big/1876082.jpg', title: 'The Godfather', year: '1972-03-08', type: 'Crime', runtime: '96', id: 5 }
 ];
+
+const mapStateToProps = ({ allFilms }) => {
+    return {
+        allFilms
+    }
+};
 
 const HomePage = () => {
     const [filmList, setFilmList] = useState(defaultValues);
@@ -106,4 +113,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);
