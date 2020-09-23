@@ -17,23 +17,19 @@ const defaultValues = [
     { img: 'https://image.posterlounge.com/images/big/1876082.jpg', title: 'The Godfather', year: '1972-03-08', type: 'Crime', runtime: '96', id: 5 }
 ];
 
-const mapStateToProps = ({ allFilms }) => {
-    return {
-        allFilms
-    }
-};
-
-const HomePage = () => {
+const HomePage = (props) => {
     const [filmList, setFilmList] = useState(defaultValues);
     const [selectedTabIndex, setSelectedTabIndex] = useState(0);
     const [isDetailsPage, setDetailsPage] = useState(false);
     const [currentMovie, setCurrentMovie] = useState({});
     const [sortBy, setSortBy] = useState('date');
 
+    console.log(props);
+
     const apiResponse = async () => {
         // const v = await fetch('http://localhost:4000/movies').then((resp) => resp.json()).then(({ data }) => console.log(data));
         const v = await fetch('http://localhost:4000/movies').then((resp) => resp.json()).then(({ data }) => store.dispatch(getAllFilms(data)));
-        console.log(initialState);
+        console.log(v);
     }
 
     // useEffect(() => {
@@ -112,5 +108,11 @@ const HomePage = () => {
         </Fragment>
     )
 }
+
+const mapStateToProps = (store) => {
+    return {
+        data: store.homePage.data,
+    }
+};
 
 export default connect(mapStateToProps)(HomePage);
