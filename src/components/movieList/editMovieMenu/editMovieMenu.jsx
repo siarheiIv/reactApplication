@@ -16,13 +16,6 @@ const EditMovieMenu = (props) => {
 
     };
 
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-    // const handleClick = () => {
-    //     setIsModalOpen(!isModalOpen);
-    // }
-
     const { handleClick, description } = props;
 
     return (
@@ -39,7 +32,7 @@ const EditMovieMenu = (props) => {
                 </div>)
             }
             {editModal && <EditMovieModal handleClick={handleClick} description={description} />}
-            {deleteModal && <DeleteMovieModal handleClick={handleClick} />}
+            {deleteModal && <DeleteMovieModal handleClick={handleClick} description={description} />}
         </React.Fragment>
     )
 }

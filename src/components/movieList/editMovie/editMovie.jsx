@@ -3,12 +3,6 @@ import EditMovieMenu from '../editMovieMenu/index';
 import movie_edit from './movie_edit.scss';
 
 const EditMovie = (props) => {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-    // const handleClick = () => {
-    //     setIsModalOpen(!isModalOpen);
-    // }
 
     const useToggle = (initialState) => {
         const [value, setValue] = useState(initialState);

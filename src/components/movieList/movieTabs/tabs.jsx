@@ -4,10 +4,14 @@ const Tabs = (props) => {
     const [tabs, setTabs] = useState(
         [
             { title: 'All', attribute: 'all' },
-            { title: 'Documentary', attribute: 'documentary' },
-            { title: 'Comedy', attribute: 'comedy' },
-            { title: 'Horror', attribute: 'horror' },
-            { title: 'Crime', attribute: 'crime' },
+            { title: 'Action', attribute: 'action' },
+            { title: 'Adventure', attribute: 'adventure' },
+            { title: 'Animation', attribute: 'animation' },
+            { title: 'Drama', attribute: 'drama' },
+            { title: 'Family', attribute: 'family' },
+            { title: 'Fantasy', attribute: 'fantasy' },
+            { title: 'Romance', attribute: 'romance' },
+            { title: 'Science Fiction', attribute: 'science fiction' },
         ]
     );
     const { selectedTabIndex, handleTabClick } = props;

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ModalHOC from '../../hoc/modalHOC';
+import { addMovie, updateMovie } from '../../../redux/actions';
+import { store } from '../../../redux/store';
 import Select from '@material-ui/core/Select';
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from '@material-ui/core/TextField';
@@ -10,25 +12,49 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { styles, theme1 } from './styles-material-ui';
 
 const EditMovieModal = (props) => {
+    const { description, classes, handleClick } = props;
     const [genres, setGenres] = useState([]);
-    const [date, setDate] = useState(props.description ? props.description.year : '');
+    const [inputValues, setValues] = useState(
+        {
+            genres: description.genres,
+            id: description.id,
+            overview: description.overview,
+            overview: description.overview,
+            poster_path: description.poster_path,
+            release_date: description.release_date,
+            runtime: description.runtime,
+            title: description.title,
+            vote_average: description.vote_average,
+        }
+    );
 
     const handleChangeSelect = (e) => {
-        setGenres([...e.target.value]);
+        setValues({ ...inputValues, genres: [...inputValues.genres, ...e.target.value] });
     };
 
-    const handleChange = (e) => {
-        setDate(e.target.value);
-    };
+    const handleAddMovie = () => {
+        if (store.getState().homePage.sortedMovies.filter((movie) => movie.id === inputValues.id).length) {
+            store.dispatch(updateMovie(inputValues, inputValues.id));
+        } else {
+            store.dispatch(addMovie(inputValues));
+        }
+        handleClick();
+    }
 
-    const { description, classes, handleClick } = props;
+    const handleInputChange = (e) => {
+        setValues({ ...inputValues, [e.target.name]: e.target.value });
+    }
+
+    const getGenres = (genres) => {
+        return genres.toString();
+    }
 
     return (
         <React.Fragment>
             <h2>Edit Movie</h2>
             <div className="modal_field">
                 <label htmlFor="title">Title</label>
-                <input type="text" name="title" value={description ? description.title : ''} />
+                <input type="text" name="title" value={inputValues.title} onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="modal_field release_date">
                 <label htmlFor="release_date">Release Date</label>
@@ -36,14 +62,15 @@ const EditMovieModal = (props) => {
                     InputProps={{ disableUnderline: true, className: classes.root_form_calendar_input }}
                     id="date"
                     type="date"
-                    value={date}
-                    onChange={handleChange}
+                    name="release_date"
+                    value={inputValues.release_date}
+                    onChange={handleInputChange}
                     classes={{ root: classes.root_form_calendar }}
                 />
             </div>
             <div className="modal_field">
-                <label htmlFor="movie_url">Movie Url</label>
-                <input type="text" name="movie_url" />
+                <label htmlFor="movie_url">Image Url</label>
+                <input type="text" name="poster_path" value={inputValues.poster_path} onChange={(e) => handleInputChange(e)} />
             </div>
             <FormControl classes={{ root: classes.root_container }} >
                 <InputLabel htmlFor="genre" shrink={true} classes={{ root: classes.input_label }}>Genre</InputLabel>
@@ -54,7 +81,7 @@ const EditMovieModal = (props) => {
                         id="genre"
                         classes={{ root: classes.root_form_input }}
                         onChange={handleChangeSelect}
-                        value={genres}
+                        value={inputValues.genres}
                     >
                         <MenuItem value={'comedy'}>Comedy</MenuItem>
                         <MenuItem value={'drama'}>Drama</MenuItem>
@@ -64,15 +91,15 @@ const EditMovieModal = (props) => {
             </FormControl>
             <div className="modal_field">
                 <label htmlFor="overview">Overview</label>
-                <input type="text" name="overview" />
+                <input type="text" name="overview" value={inputValues.overview} onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="modal_field">
                 <label htmlFor="runtime">Runtime</label>
-                <input type="text" name="runtime" value={description ? description.runtime : ''} />
+                <input type="text" name="runtime" value={inputValues.runtime} onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="modal_buttons_container">
                 <button className="button button_reverse" onClick={handleClick}>Reset</button>
-                <button className="button">Save</button>
+                <button className="button" onClick={handleAddMovie}>Save</button>
             </div>
         </React.Fragment >
     )

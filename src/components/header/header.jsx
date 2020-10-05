@@ -3,6 +3,17 @@ import SearchBar from './searchBar/searchBar';
 import EditMovieModal from '../movieList/editMovieModal/index';
 import header from './header.scss';
 
+const description = {
+    genres: [],
+    id: Math.random(),
+    overview: '',
+    poster_path: '',
+    release_date: '',
+    runtime: '',
+    title: '',
+    vote_average: '',
+};
+
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +32,7 @@ const Header = () => {
                     <SearchBar />
                 </div>
             </header>
-            {isModalOpen && <EditMovieModal handleClick={handleClick} />}
+            {isModalOpen && <EditMovieModal description={description} handleClick={handleClick} />}
         </React.Fragment>
     )
 }

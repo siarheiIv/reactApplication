@@ -5,16 +5,18 @@ import movie from './movie.scss';
 
 const Movie = (props) => {
     const { description, openDetailsPage } = props;
+    console.log(description)
     return (
-        <article className="movie" onClick={() => openDetailsPage(description)}>
-            <img src={description.img} alt="" className="movie__image" />
+        <article className="movie">
+            <a href={`#/film/${description.id}`} onClick={() => openDetailsPage(description)}>
+                <img src={description.poster_path} alt="" className="movie__image" />
+            </a>
             <EditMovie description={description} />
             <div className="movie__description">
                 <div>
                     <h2 className="movie__title">{description.title}</h2>
-                    <p className="movie__category">{description.type}</p>
                 </div>
-                <p className="movie__year">{description.year}</p>
+                <p className="movie__year">{description.release_date.slice(0, 4)}</p>
             </div>
         </article>
     )
@@ -22,9 +24,9 @@ const Movie = (props) => {
 
 Movie.propTypes = {
     description: PropTypes.shape({
-        img: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
+        poster_path: PropTypes.string.isRequired,
+        release_date: PropTypes.string.isRequired,
+        genres: PropTypes.array.isRequired,
         title: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
     }),
