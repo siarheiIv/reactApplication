@@ -1,4 +1,4 @@
-import { GET_ALL_FILMS, SORT_MOVIES, SELECTED_TAB_INDEX, SORT_MOVIES_BY_GENRE, SEARCH_MOVIE, UPDATE_SEARCH_TERM, DELETE_MOVIE, ADD_MOVIE, OPEN_ALL_TAB, UPDATE_MOVIE } from '../actions';
+import { GET_ALL_FILMS, SORT_MOVIES, SELECTED_TAB_INDEX, SORT_MOVIES_BY_GENRE, SEARCH_MOVIE, UPDATE_SEARCH_TERM, ADD_MOVIE, OPEN_ALL_TAB, UPDATE_MOVIE } from '../actions';
 
 const initialState = {
     movies: [],
@@ -34,8 +34,6 @@ const homePage = (state = initialState, action) => {
             return { ...state, sortedMovies: state.movies.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
-        case DELETE_MOVIE:
-            return { ...state, movies: state.movies.filter(movie => movie.id !== action.payload), sortedMovies: state.sortedMovies.filter(movie => movie.id !== action.payload) };
         case ADD_MOVIE:
             return { ...state, movies: [...state.movies, action.payload], sortedMovies: [...state.sortedMovies, action.payload] };
         case UPDATE_MOVIE:

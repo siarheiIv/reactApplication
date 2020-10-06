@@ -17,7 +17,7 @@ const EditMovieModal = (props) => {
     const [inputValues, setValues] = useState(
         {
             genres: description.genres,
-            id: description.id,
+            // id: description.id,
             overview: description.overview,
             overview: description.overview,
             poster_path: description.poster_path,
@@ -42,7 +42,12 @@ const EditMovieModal = (props) => {
     }
 
     const handleInputChange = (e) => {
-        setValues({ ...inputValues, [e.target.name]: e.target.value });
+        if (e.target.name === 'vote_average' || e.target.name === 'runtime') {
+            console.log(e.target.name === 'vote_average');
+            setValues({ ...inputValues, [e.target.name]: Number(e.target.value) });
+        } else {
+            setValues({ ...inputValues, [e.target.name]: e.target.value });
+        }
     }
 
     const getGenres = (genres) => {
@@ -92,6 +97,10 @@ const EditMovieModal = (props) => {
             <div className="modal_field">
                 <label htmlFor="overview">Overview</label>
                 <input type="text" name="overview" value={inputValues.overview} onChange={(e) => handleInputChange(e)} />
+            </div>
+            <div className="modal_field">
+                <label htmlFor="vote_average">Average Vote</label>
+                <input type="text" name="vote_average" value={inputValues.vote_average} onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="modal_field">
                 <label htmlFor="runtime">Runtime</label>
