@@ -13,11 +13,9 @@ import { styles, theme1 } from './styles-material-ui';
 
 const EditMovieModal = (props) => {
     const { description, classes, handleClick } = props;
-    const [genres, setGenres] = useState([]);
     const [inputValues, setValues] = useState(
         {
             genres: description.genres,
-            // id: description.id,
             overview: description.overview,
             overview: description.overview,
             poster_path: description.poster_path,

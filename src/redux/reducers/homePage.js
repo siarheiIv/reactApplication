@@ -34,7 +34,7 @@ const homePage = (state = initialState, action) => {
         case OPEN_ALL_TAB:
             return { ...state, sortedMovies: state.movies };
         case SEARCH_MOVIE:
-            return { ...state, sortedMovies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
+            return { ...state, sortedMovies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1), movies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
         case ADD_MOVIE:
