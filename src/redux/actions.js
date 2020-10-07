@@ -1,5 +1,6 @@
 import { store } from './store';
 
+export const GET_ALL_FILMS_FOR_RENDER = 'GET_ALL_FILMS_FOR_RENDER';
 export const GET_ALL_FILMS = 'GET_ALL_FILMS';
 export const SORT_MOVIES = 'SORT_MOVIES';
 export const SELECTED_TAB_INDEX = 'SELECTED_TAB_INDEX';
@@ -9,6 +10,11 @@ export const OPEN_ALL_TAB = 'OPEN_ALL_TAB';
 export const UPDATE_SEARCH_TERM = 'UPDATE_SEARCH_TERM';
 export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
+
+export const getFilmsForRender = (response) => ({
+    type: GET_ALL_FILMS_FOR_RENDER,
+    payload: response,
+});
 
 export const getAllFilms = (response) => ({
     type: GET_ALL_FILMS,
@@ -45,12 +51,12 @@ export const updateSearchTerm = data => ({
     payload: data
 });
 
-// export const addMovie = data => ({
-//     type: ADD_MOVIE,
-//     payload: data
-// });
+export const pushMovieIntoList = data => ({
+    type: ADD_MOVIE,
+    payload: data
+});
 
-export const updateMovie = (data, id) => ({
+export const updateMovieInList = (data, id) => ({
     type: UPDATE_MOVIE,
     payload: data,
     id,
@@ -59,7 +65,7 @@ export const updateMovie = (data, id) => ({
 export const loadAllMovies = () => async dispatch => {
     try {
         const { data } = await fetch('http://localhost:5000/movies').then((resp) => resp.json());
-        store.dispatch(getAllFilms(data));
+        store.dispatch(getFilmsForRender(data));
     } catch (error) {
         console.error();
     }
@@ -78,16 +84,36 @@ export const deleteMovie = (id) => async dispatch => {
 
 export const addMovie = (newMovie) => async dispatch => {
     try {
-        await fetch('http://localhost:5000/movies', {
+        const newMovieObject = await fetch('http://localhost:5000/movies', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newMovie)
-        });
-        store.dispatch(loadAllMovies());
+        }).then(response => response.json());
+        store.dispatch(pushMovieIntoList(newMovieObject));
     } catch (error) {
         console.error();
     }
 };
+
+export const updateMovie = (data, id) => async dispatch => {
+    try {
+        const editedMovie = await fetch(`http://localhost:5000/movies/`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, id })
+        }).then(response => response.json());
+        store.dispatch(updateMovieInList(editedMovie, editedMovie.id));
+    } catch (error) {
+        console.error();
+    }
+};
+
+export const searchMovieApi = (title) => async dispatch => {
+    try {
+        const { data } = await fetch('http://localhost:5000/movies?limit=3500').then((resp) => resp.json());
+        store.dispatch(getAllFilms(data));
+        store.dispatch(searchMovie(title));
+    } catch (error) {
+        console.error();
+    }
+}

@@ -5,7 +5,6 @@ import movie from './movie.scss';
 
 const Movie = (props) => {
     const { description, openDetailsPage } = props;
-    console.log(description)
     return (
         <article className="movie">
             <a href={`#/film/${description.id}`} onClick={() => openDetailsPage(description)}>

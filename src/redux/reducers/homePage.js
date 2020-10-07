@@ -1,6 +1,7 @@
-import { GET_ALL_FILMS, SORT_MOVIES, SELECTED_TAB_INDEX, SORT_MOVIES_BY_GENRE, SEARCH_MOVIE, UPDATE_SEARCH_TERM, ADD_MOVIE, OPEN_ALL_TAB, UPDATE_MOVIE } from '../actions';
+import { GET_ALL_FILMS_FOR_RENDER, SORT_MOVIES, SELECTED_TAB_INDEX, SORT_MOVIES_BY_GENRE, SEARCH_MOVIE, UPDATE_SEARCH_TERM, ADD_MOVIE, OPEN_ALL_TAB, UPDATE_MOVIE, GET_ALL_FILMS } from '../actions';
 
 const initialState = {
+    wholeMoviesList: [],
     movies: [],
     sortedMovies: [],
     sortBy: 'date',
@@ -20,8 +21,10 @@ const initialState = {
 
 const homePage = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_FILMS:
+        case GET_ALL_FILMS_FOR_RENDER:
             return { ...state, movies: action.payload, sortedMovies: action.payload };
+        case GET_ALL_FILMS:
+            return { ...state, wholeMoviesList: action.payload };
         case SORT_MOVIES:
             return { ...state, sortBy: action.payload };
         case SELECTED_TAB_INDEX:
@@ -31,11 +34,11 @@ const homePage = (state = initialState, action) => {
         case OPEN_ALL_TAB:
             return { ...state, sortedMovies: state.movies };
         case SEARCH_MOVIE:
-            return { ...state, sortedMovies: state.movies.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
+            return { ...state, sortedMovies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
         case ADD_MOVIE:
-            return { ...state, movies: [...state.movies, action.payload], sortedMovies: [...state.sortedMovies, action.payload] };
+            return { ...state, movies: [action.payload, ...state.movies], sortedMovies: [action.payload, ...state.sortedMovies] };
         case UPDATE_MOVIE:
             const updatedList = state.sortedMovies.map(movie => movie.id === action.id ? action.payload : movie)
             return { ...state, movies: updatedList, sortedMovies: updatedList };
