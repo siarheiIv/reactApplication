@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { loadAllMovies, sortMovies, setSelectedIndex, sortMoviesByGenre, openAllTab } from '../../redux/actions';
+import { loadAllMovies, setSelectedIndex, setOffsetCounter } from '../../redux/actions';
 import Tabs from './movieTabs/index';
 import MovieFilter from '../movieFilter/index';
 import Movie from './movie/index';
@@ -12,8 +12,21 @@ import movies_list from './movies_list';
 const MovieList = (props) => {
 
     useEffect(() => {
-        props.dispatch(loadAllMovies());
+        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter));
     }, []);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleScroll = () => {
+        if ((window.pageYOffset + window.innerHeight + 100) > document.documentElement.scrollHeight) {
+            props.dispatch(setOffsetCounter());
+            // props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
+            console.log(props.offset)
+        }
+    };
 
     const sortFilmsByName = (films) => {
         return films.sort((a, b) => { return (a.title > b.title) ? 1 : (a.title < b.title) ? -1 : 0 });
@@ -25,27 +38,27 @@ const MovieList = (props) => {
         });
     };
 
-    const sortByTabClick = (e, films) => {
+    const sortByTabClick = (e) => {
         if (e.target.dataset.tab === 'all') {
-            props.dispatch(openAllTab());
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, ''));
         } else {
-            props.dispatch(sortMoviesByGenre(e.target.dataset.tab));
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab));
         }
     };
 
     const handleChange = (e) => {
-        if (e && e.target.options[e.target.selectedIndex].value === 'name') {
-            props.dispatch(sortMovies('name'));
+        if (e && e.target.options[e.target.selectedIndex].value === 'title') {
+            props.dispatch(loadAllMovies(props.searchTerm, 'title'));
             sortFilmsByName(props.movies);
         } else {
-            props.dispatch(sortMovies('date'));
+            props.dispatch(loadAllMovies(props.searchTerm, 'date'));
             sortFilmsByYear(props.movies);
         }
     };
 
     const handleTabClick = (e, index) => {
         props.dispatch(setSelectedIndex(index));
-        sortByTabClick(e, props.movies);
+        sortByTabClick(e);
     };
 
     const { openDetailsPage } = props;
@@ -67,7 +80,6 @@ const MovieList = (props) => {
                         {
                             props.sortedMovies.length && props.sortedMovies.map(movie => <Movie key={movie.id} description={movie} openDetailsPage={openDetailsPage} />)
                         }
-                        {console.log(props.sortedMovies)}
                     </div>
                 </CheckMovie>
             </div>
@@ -81,6 +93,9 @@ const mapStateToProps = (store) => {
         sortBy: store.homePage.sortBy,
         selectedTabIndex: store.homePage.selectedTabIndex,
         sortedMovies: store.homePage.sortedMovies,
+        searchTerm: store.homePage.searchTerm,
+        filter: store.homePage.filter,
+        offset: store.homePage.offset,
     }
 };
 

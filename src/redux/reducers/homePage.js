@@ -1,40 +1,24 @@
-import { GET_ALL_FILMS_FOR_RENDER, SORT_MOVIES, SELECTED_TAB_INDEX, SORT_MOVIES_BY_GENRE, SEARCH_MOVIE, UPDATE_SEARCH_TERM, ADD_MOVIE, OPEN_ALL_TAB, UPDATE_MOVIE, GET_ALL_FILMS } from '../actions';
+import { GET_ALL_FILMS_FOR_RENDER, SELECTED_TAB_INDEX, UPDATE_SEARCH_TERM, ADD_MOVIE, UPDATE_MOVIE, OFFSET_COUNTER } from '../actions';
 
 const initialState = {
-    wholeMoviesList: [],
     movies: [],
     sortedMovies: [],
-    sortBy: 'date',
+    sortBy: '',
     selectedTabIndex: 0,
     searchTerm: '',
-    options: {
-        // filter: [],
-        // limit: 9,
-        // offset: 0,
-        // search: null,
-        // searchBy: SEARCH_BY.TITLE,
-        sortBy: 'release_date',
-        // sortOrder: SORT_ORDER.ASC,
-        totalAmount: 0,
-    },
+    filter: '',
+    offset: 0,
 };
 
 const homePage = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_FILMS_FOR_RENDER:
-            return { ...state, movies: action.payload, sortedMovies: action.payload };
-        case GET_ALL_FILMS:
-            return { ...state, wholeMoviesList: action.payload };
-        case SORT_MOVIES:
-            return { ...state, sortBy: action.payload };
+            return { ...state, movies: state.movies.concat(action.data), sortedMovies: state.sortedMovies.concat(action.data), sortBy: action.sortBy, searchTerm: action.searchTerm, filter: action.filter };
         case SELECTED_TAB_INDEX:
             return { ...state, selectedTabIndex: action.payload };
-        case SORT_MOVIES_BY_GENRE:
-            return { ...state, sortedMovies: state.movies.filter(film => film.genres.some(v => v.toLowerCase() === action.payload)) };
-        case OPEN_ALL_TAB:
-            return { ...state, sortedMovies: state.movies };
-        case SEARCH_MOVIE:
-            return { ...state, sortedMovies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1), movies: state.wholeMoviesList.filter(film => film.title.toLowerCase().indexOf(action.payload.toLowerCase()) > -1) };
+        case OFFSET_COUNTER:
+            console.log(state.offset)
+            return { ...state, offset: state.offset + 1 };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
         case ADD_MOVIE:

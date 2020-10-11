@@ -41,7 +41,6 @@ const EditMovieModal = (props) => {
 
     const handleInputChange = (e) => {
         if (e.target.name === 'vote_average' || e.target.name === 'runtime') {
-            console.log(e.target.name === 'vote_average');
             setValues({ ...inputValues, [e.target.name]: Number(e.target.value) });
         } else {
             setValues({ ...inputValues, [e.target.name]: e.target.value });

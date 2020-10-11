@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchMovieApi, updateSearchTerm } from '../../../redux/actions';
+import { loadAllMovies, updateSearchTerm } from '../../../redux/actions';
 import movie_search from './search_bar.scss';
 
 const SearchBar = (props) => {
     const handleSearch = (e) => {
         e.preventDefault();
-        props.dispatch(searchMovieApi(props.searchTerm));
+        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter));
     }
     const handleSearchTerm = (e) => {
         props.dispatch(updateSearchTerm(e.target.value));
@@ -24,11 +24,9 @@ const SearchBar = (props) => {
 
 const mapStateToProps = (store) => {
     return {
-        movies: store.homePage.movies,
-        sortBy: store.homePage.sortBy,
-        selectedTabIndex: store.homePage.selectedTabIndex,
-        sortedMovies: store.homePage.sortedMovies,
         searchTerm: store.homePage.searchTerm,
+        sortBy: store.homePage.sortBy,
+        filter: store.homePage.filter,
     }
 };
 

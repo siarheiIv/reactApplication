@@ -1,49 +1,26 @@
 import { store } from './store';
 
 export const GET_ALL_FILMS_FOR_RENDER = 'GET_ALL_FILMS_FOR_RENDER';
-export const GET_ALL_FILMS = 'GET_ALL_FILMS';
-export const SORT_MOVIES = 'SORT_MOVIES';
 export const SELECTED_TAB_INDEX = 'SELECTED_TAB_INDEX';
-export const SORT_MOVIES_BY_GENRE = 'SORT_MOVIES_BY_GENRE';
-export const SEARCH_MOVIE = 'SEARCH_MOVIE';
-export const OPEN_ALL_TAB = 'OPEN_ALL_TAB';
 export const UPDATE_SEARCH_TERM = 'UPDATE_SEARCH_TERM';
 export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
+export const OFFSET_COUNTER = 'OFFSET_COUNTER';
 
-export const getFilmsForRender = (response) => ({
+export const getFilmsForRender = (data, searchTerm, sortBy, filter) => ({
     type: GET_ALL_FILMS_FOR_RENDER,
-    payload: response,
-});
-
-export const getAllFilms = (response) => ({
-    type: GET_ALL_FILMS,
-    payload: response,
-});
-
-export const sortMovies = data => ({
-    type: SORT_MOVIES,
-    payload: data
+    data,
+    searchTerm,
+    sortBy,
+    filter
 });
 
 export const setSelectedIndex = data => ({
     type: SELECTED_TAB_INDEX,
     payload: data
 });
-
-export const sortMoviesByGenre = data => ({
-    type: SORT_MOVIES_BY_GENRE,
-    payload: data
-});
-
-export const openAllTab = data => ({
-    type: OPEN_ALL_TAB,
-    payload: data
-});
-
-export const searchMovie = data => ({
-    type: SEARCH_MOVIE,
-    payload: data
+export const setOffsetCounter = () => ({
+    type: OFFSET_COUNTER
 });
 
 export const updateSearchTerm = data => ({
@@ -62,10 +39,12 @@ export const updateMovieInList = (data, id) => ({
     id,
 });
 
-export const loadAllMovies = () => async dispatch => {
+export const loadAllMovies = (title, sortBy, filter, offset) => async dispatch => {
     try {
-        const { data } = await fetch('http://localhost:5000/movies').then((resp) => resp.json());
-        store.dispatch(getFilmsForRender(data));
+        console.log(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`);
+        const { data } = await fetch(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
+            .then((resp) => resp.json());
+        store.dispatch(getFilmsForRender(data, title, sortBy, filter));
     } catch (error) {
         console.error();
     }
@@ -76,7 +55,7 @@ export const deleteMovie = (id) => async dispatch => {
         await fetch(`http://localhost:5000/movies/${id}`, {
             method: 'DELETE',
         });
-        store.dispatch(loadAllMovies());
+        store.dispatch(loadAllMovies('', '', ''));
     } catch (error) {
         console.error();
     }
@@ -107,13 +86,3 @@ export const updateMovie = (data, id) => async dispatch => {
         console.error();
     }
 };
-
-export const searchMovieApi = (title) => async dispatch => {
-    try {
-        const { data } = await fetch('http://localhost:5000/movies?limit=3500').then((resp) => resp.json());
-        store.dispatch(getAllFilms(data));
-        store.dispatch(searchMovie(title));
-    } catch (error) {
-        console.error();
-    }
-}
