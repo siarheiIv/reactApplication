@@ -6,7 +6,7 @@ import movie_search from './search_bar.scss';
 const SearchBar = (props) => {
     const handleSearch = (e) => {
         e.preventDefault();
-        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter));
+        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
     }
     const handleSearchTerm = (e) => {
         props.dispatch(updateSearchTerm(e.target.value));
@@ -27,6 +27,7 @@ const mapStateToProps = (store) => {
         searchTerm: store.homePage.searchTerm,
         sortBy: store.homePage.sortBy,
         filter: store.homePage.filter,
+        offset: store.homePage.offset,
     }
 };
 

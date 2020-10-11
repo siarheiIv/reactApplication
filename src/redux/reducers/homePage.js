@@ -13,12 +13,13 @@ const initialState = {
 const homePage = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_FILMS_FOR_RENDER:
-            return { ...state, movies: state.movies.concat(action.data), sortedMovies: state.sortedMovies.concat(action.data), sortBy: action.sortBy, searchTerm: action.searchTerm, filter: action.filter };
+            const movieList = state.offset === action.offset ? action.data : state.movies.concat(action.data);
+            const sortedMovieList = state.offset === action.offset ? action.data : state.sortedMovies.concat(action.data);
+            return { ...state, movies: movieList, sortedMovies: sortedMovieList, sortBy: action.sortBy, searchTerm: action.searchTerm, filter: action.filter, offset: action.offset };
         case SELECTED_TAB_INDEX:
             return { ...state, selectedTabIndex: action.payload };
-        case OFFSET_COUNTER:
-            console.log(state.offset)
-            return { ...state, offset: state.offset + 1 };
+        // case OFFSET_COUNTER:
+        //     return { ...state, offset: state.offset + 1 };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
         case ADD_MOVIE:

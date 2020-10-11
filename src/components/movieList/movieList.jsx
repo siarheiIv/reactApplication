@@ -12,7 +12,7 @@ import movies_list from './movies_list';
 const MovieList = (props) => {
 
     useEffect(() => {
-        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter));
+        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
     }, []);
 
     useEffect(() => {
@@ -22,9 +22,9 @@ const MovieList = (props) => {
 
     const handleScroll = () => {
         if ((window.pageYOffset + window.innerHeight + 100) > document.documentElement.scrollHeight) {
-            props.dispatch(setOffsetCounter());
-            // props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
-            console.log(props.offset)
+            // props.dispatch(setOffsetCounter());
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 1));
+            console.log(props)
         }
     };
 
@@ -40,18 +40,18 @@ const MovieList = (props) => {
 
     const sortByTabClick = (e) => {
         if (e.target.dataset.tab === 'all') {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, ''));
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', props.offset));
         } else {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab));
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab, props.offset));
         }
     };
 
     const handleChange = (e) => {
         if (e && e.target.options[e.target.selectedIndex].value === 'title') {
-            props.dispatch(loadAllMovies(props.searchTerm, 'title'));
+            props.dispatch(loadAllMovies(props.searchTerm, 'title', props.filter, props.offset));
             sortFilmsByName(props.movies);
         } else {
-            props.dispatch(loadAllMovies(props.searchTerm, 'date'));
+            props.dispatch(loadAllMovies(props.searchTerm, 'date', props.filter, props.offset));
             sortFilmsByYear(props.movies);
         }
     };

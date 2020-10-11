@@ -7,12 +7,13 @@ export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
 export const OFFSET_COUNTER = 'OFFSET_COUNTER';
 
-export const getFilmsForRender = (data, searchTerm, sortBy, filter) => ({
+export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset) => ({
     type: GET_ALL_FILMS_FOR_RENDER,
     data,
     searchTerm,
     sortBy,
-    filter
+    filter,
+    offset
 });
 
 export const setSelectedIndex = data => ({
@@ -44,7 +45,7 @@ export const loadAllMovies = (title, sortBy, filter, offset) => async dispatch =
         console.log(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`);
         const { data } = await fetch(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
             .then((resp) => resp.json());
-        store.dispatch(getFilmsForRender(data, title, sortBy, filter));
+        store.dispatch(getFilmsForRender(data, title, sortBy, filter, offset));
     } catch (error) {
         console.error();
     }
