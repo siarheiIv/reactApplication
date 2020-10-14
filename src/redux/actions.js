@@ -7,13 +7,14 @@ export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
 export const OFFSET_COUNTER = 'OFFSET_COUNTER';
 
-export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset) => ({
+export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset, shouldUpdateState) => ({
     type: GET_ALL_FILMS_FOR_RENDER,
     data,
     searchTerm,
     sortBy,
     filter,
-    offset
+    offset,
+    shouldUpdateState
 });
 
 export const setSelectedIndex = data => ({
@@ -40,12 +41,12 @@ export const updateMovieInList = (data, id) => ({
     id,
 });
 
-export const loadAllMovies = (title, sortBy, filter, offset) => async dispatch => {
+export const loadAllMovies = (title, sortBy, filter, offset, shouldUpdateState) => async dispatch => {
     try {
-        console.log(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`);
-        const { data } = await fetch(`http://localhost:5000/movies?${offset ? `offset=${offset}` : 'offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
+        console.log(`http://localhost:5000/movies?&limit=9${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
+        const { data } = await fetch(`http://localhost:5000/movies?&limit=9${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
             .then((resp) => resp.json());
-        store.dispatch(getFilmsForRender(data, title, sortBy, filter, offset));
+        store.dispatch(getFilmsForRender(data, title, sortBy, filter, offset, shouldUpdateState));
     } catch (error) {
         console.error();
     }

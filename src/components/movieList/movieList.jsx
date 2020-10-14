@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { loadAllMovies, setSelectedIndex, setOffsetCounter } from '../../redux/actions';
@@ -10,21 +10,24 @@ import movie_founded from './styles/movie_founded';
 import movies_list from './movies_list';
 
 const MovieList = (props) => {
+    const [isBottom, setIsBottom] = useState(false);
 
     useEffect(() => {
         props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
-    }, []);
-
-    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        if (isBottom) {
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 9));
+            setIsBottom(false);
+        }
+    }, [isBottom]);
+
     const handleScroll = () => {
         if ((window.pageYOffset + window.innerHeight + 100) > document.documentElement.scrollHeight) {
-            // props.dispatch(setOffsetCounter());
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 1));
-            console.log(props)
+            setIsBottom(true);
         }
     };
 
@@ -40,9 +43,9 @@ const MovieList = (props) => {
 
     const sortByTabClick = (e) => {
         if (e.target.dataset.tab === 'all') {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', props.offset));
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', 0, true));
         } else {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab, props.offset));
+            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab, 0, true));
         }
     };
 
@@ -75,10 +78,10 @@ const MovieList = (props) => {
                             handleChange={handleChange}
                         />
                     </div>
-                    <p className="sort-line__movies-num">{`${props.movies && props.sortedMovies.length} movies found`}</p>
+                    <p className="sort-line__movies-num">{`${props.movies && props.movies.length} movies found`}</p>
                     <div className="movies-list">
                         {
-                            props.sortedMovies.length && props.sortedMovies.map(movie => <Movie key={movie.id} description={movie} openDetailsPage={openDetailsPage} />)
+                            props.movies.length && props.movies.map(movie => <Movie key={movie.id} description={movie} openDetailsPage={openDetailsPage} />)
                         }
                     </div>
                 </CheckMovie>
@@ -92,7 +95,6 @@ const mapStateToProps = (store) => {
         movies: store.homePage.movies,
         sortBy: store.homePage.sortBy,
         selectedTabIndex: store.homePage.selectedTabIndex,
-        sortedMovies: store.homePage.sortedMovies,
         searchTerm: store.homePage.searchTerm,
         filter: store.homePage.filter,
         offset: store.homePage.offset,

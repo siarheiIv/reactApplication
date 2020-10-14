@@ -31,7 +31,7 @@ const EditMovieModal = (props) => {
     };
 
     const handleAddMovie = () => {
-        if (store.getState().homePage.sortedMovies.filter((movie) => movie.id === description.id).length) {
+        if (store.getState().homePage.movies.filter((movie) => movie.id === description.id).length) {
             store.dispatch(updateMovie(inputValues, description.id));
         } else {
             store.dispatch(addMovie(inputValues));
