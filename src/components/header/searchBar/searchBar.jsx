@@ -16,7 +16,7 @@ const SearchBar = (props) => {
             <h1>Find your movie</h1>
             <form className="movie-search__buttons-line" autoComplete="off" onSubmit={(e) => handleSearch(e)}>
                 <input type="text" name="movie" className="movie-search__input" onChange={(e) => handleSearchTerm(e)} />
-                <input className="button" type="submit" value="Search" disabled={props.searchTerm.length > 2 ? false : true} />
+                <input className="button" type="submit" value="Search" />
             </form>
         </div>
     )

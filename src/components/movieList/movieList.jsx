@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { loadAllMovies, setSelectedIndex, setOffsetCounter } from '../../redux/actions';
+import { loadAllMovies, setSelectedIndex } from '../../redux/actions';
 import Tabs from './movieTabs/index';
 import MovieFilter from '../movieFilter/index';
 import Movie from './movie/index';
@@ -31,16 +31,6 @@ const MovieList = (props) => {
         }
     };
 
-    const sortFilmsByName = (films) => {
-        return films.sort((a, b) => { return (a.title > b.title) ? 1 : (a.title < b.title) ? -1 : 0 });
-    };
-
-    const sortFilmsByYear = (films) => {
-        return films.sort((a, b) => {
-            return moment(a.release_date) - moment(b.release_date);
-        });
-    };
-
     const sortByTabClick = (e) => {
         if (e.target.dataset.tab === 'all') {
             props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', 0, true));
@@ -51,11 +41,11 @@ const MovieList = (props) => {
 
     const handleChange = (e) => {
         if (e && e.target.options[e.target.selectedIndex].value === 'title') {
-            props.dispatch(loadAllMovies(props.searchTerm, 'title', props.filter, props.offset));
-            sortFilmsByName(props.movies);
+            props.dispatch(loadAllMovies(props.searchTerm, 'title', props.filter, 0, true));
+        } else if (e && e.target.options[e.target.selectedIndex].value === 'date') {
+            props.dispatch(loadAllMovies(props.searchTerm, 'date', props.filter, 0, true));
         } else {
-            props.dispatch(loadAllMovies(props.searchTerm, 'date', props.filter, props.offset));
-            sortFilmsByYear(props.movies);
+            props.dispatch(loadAllMovies(props.searchTerm, 'rating', props.filter, 0, true));
         }
     };
 

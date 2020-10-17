@@ -43,8 +43,7 @@ export const updateMovieInList = (data, id) => ({
 
 export const loadAllMovies = (title, sortBy, filter, offset, shouldUpdateState) => async dispatch => {
     try {
-        console.log(`http://localhost:5000/movies?&limit=9${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
-        const { data } = await fetch(`http://localhost:5000/movies?&limit=9${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title&sortOrder=asc' : '&sortBy=release_date&sortOrder=asc'}${filter ? `&filter=${filter}` : ''}`)
+        const { data } = await fetch(`http://localhost:5000/movies?&limit=9&sortOrder=asc${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title' : sortBy === 'rating' ? '&sortBy=vote_average' : '&sortBy=release_date'}${filter ? `&filter=${filter}` : ''}`)
             .then((resp) => resp.json());
         store.dispatch(getFilmsForRender(data, title, sortBy, filter, offset, shouldUpdateState));
     } catch (error) {
