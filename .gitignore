@@ -1,1 +1,18 @@
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+# Distribution directories
+dist/
+
+# Optional npm cache directory
+.npm
+
+#Visual Studo 2015 cache/options directory
+.vs/
+.vscode/
+
 node_modules

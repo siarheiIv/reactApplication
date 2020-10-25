@@ -1,0 +1,120 @@
+@import './variables.scss';
+
+.modal_overlay{
+    width: 100%;
+    height: 100%;
+    z-index:100;
+    background-color:rgba(0,0,0,0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .modal_body{
+        width: 600px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #9599a1;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+
+        .modal-close{
+            content: '';
+            position: absolute;
+            display: block;
+            width: 25px;
+            height: 25px;
+            top: 25px;
+            right: 25px;
+            cursor: pointer;
+
+            &:before{
+                content: '';
+                position: absolute;
+                display: block;
+                width: 2px;
+                height: 25px;
+                left: 13px;
+                transform: rotate(45deg);;
+                background-color: #fff;
+            }
+
+            &:after{
+                content: '';
+                position: absolute;
+                display: block;
+                width: 2px;
+                height: 25px;
+                left: 13px;
+                transform: rotate(-45deg);;
+                background-color: #fff;
+            }
+        }
+
+        .modal_wrapper{
+            padding: 50px;
+
+            h2{
+                margin-bottom: 40px;
+                font-size: 38px;
+                font-weight: 500;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .release_date{
+                position: relative;
+
+                
+            }
+
+            .modal_field{
+                margin-bottom: 20px;
+
+                label{
+                    display: block;
+                    padding-bottom: 10px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: $color-brand;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                }
+
+                .calendar{
+                    content: '';
+                    position: absolute;
+                    width: 33px;
+                    height: 33px;
+                    top: 31px;
+                    right: 10px;
+                    background-image: url(./img/calendar.png);
+                    background-size: 33px;
+                    cursor: pointer;
+                }
+
+                input, select, .modal_field_select {
+                    width: 100%;
+                    height: 40px;
+                    padding: 0 10px 0 10px;
+                    font-size: 18px;
+                    outline: none;
+                    border: none;
+                }
+
+                select{
+                    cursor: pointer;
+                }
+            }
+
+            .modal_buttons_container{
+                display: flex;
+                justify-content: flex-end;
+
+                button:nth-child(2){
+                    margin-left: 25px;
+                }
+            }
+        }
+    }
+}

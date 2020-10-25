@@ -1,0 +1,99 @@
+@import './../../styles/variables.scss';
+
+.description{
+    background-image: url(./../../styles/img/1589248812_518988.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .description_container{
+        backdrop-filter: blur(6px) brightness(60%);
+        padding-bottom: 0;
+        cursor: pointer;
+
+        &:hover{
+            backdrop-filter: blur(6px) brightness(40%);
+            padding-bottom: 50px;
+            transition: backdrop-filter 1s, padding-bottom .5s;
+        }
+
+        .description_logo{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+
+            input{
+                width: 40px;
+                outline: none;
+            }
+        }
+
+        .description_body{
+            display: flex;
+            padding-bottom: 30px;
+
+            .description_image{
+                width: 100%;
+                margin-right: 100px;
+
+                img{
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+            }
+
+            .description_wrapper{
+                margin-right: 60px;
+
+                .description_wrapper_title{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+
+                    .description_title{
+                        padding-right: 30px;
+                        font-size: 48px;
+                        font-weight: 500;
+                    }
+
+                    .description_rate{
+                        width: 70px;
+                        height: 70px;
+                        position: relative;
+                        border: 1px solid #fff;
+                        border-radius: 50%;
+
+                        span{
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 32px;
+                            color: rgb(38, 180, 80);
+                        }
+                    }
+                }
+
+                .description_short_overview{
+                    padding-bottom: 30px;
+                }
+
+                .description_wrapper_date{
+                    display: flex;
+                    margin-bottom: 40px;
+                    color: $color-brand;
+                    font-size: 28px;
+
+                    .description_date{
+                        margin-right: 30px;
+                    }
+                }
+
+                .description_overview{
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
