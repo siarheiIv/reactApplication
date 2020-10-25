@@ -4,6 +4,7 @@ import movie_details from './movie_details.scss';
 
 export default function MovieDetails(props) {
     const { currentMovie } = props;
+    console.log(currentMovie.genres)
     return (
         <div className="description">
             <div className="description_container">

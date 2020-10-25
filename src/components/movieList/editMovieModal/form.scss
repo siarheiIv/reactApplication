@@ -1,0 +1,9 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/base.scss';
+
+.error_message {
+    margin-top: 5px;
+    font-size: 16px;
+    font-style: italic;
+    color: $color-error;
+}

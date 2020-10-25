@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { loadAllMovies, setSelectedIndex } from '../../redux/actions';
 import Tabs from './movieTabs/index';

@@ -5,6 +5,7 @@ import movie from './movie.scss';
 
 const Movie = (props) => {
     const { description, openDetailsPage } = props;
+    console.log(description)
     return (
         <article className="movie">
             <a href={`#/film/${description.id}`} onClick={() => openDetailsPage(description)}>
@@ -19,16 +20,6 @@ const Movie = (props) => {
             </div>
         </article>
     )
-}
-
-Movie.propTypes = {
-    description: PropTypes.shape({
-        poster_path: PropTypes.string.isRequired,
-        release_date: PropTypes.string.isRequired,
-        genres: PropTypes.array.isRequired,
-        title: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-    }),
 }
 
 export default Movie;
