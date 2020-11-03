@@ -4,7 +4,6 @@ import { addMovie, updateMovie } from '../../../redux/actions';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { store } from '../../../redux/store';
-import form from './form';
 import { Button, MenuItem } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/styles';
@@ -24,8 +23,6 @@ const EditMovieModal = (props) => {
             vote_average: description.vote_average,
         }
     );
-
-    console.log(inputValues.genres)
 
     const handleAddMovie = (list) => {
         const values = { ...list, runtime: Number(list.runtime), vote_average: Number(list.vote_average) };

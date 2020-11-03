@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import SearchBar from './searchBar/searchBar';
 import EditMovieModal from '../movieList/editMovieModal/index';
+import { Link } from 'react-router-dom';
 import header from './header.scss';
 
 const description = {
@@ -14,7 +15,7 @@ const description = {
     vote_average: '',
 };
 
-const Header = () => {
+const Header = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleClick = useCallback(() => {
@@ -26,10 +27,10 @@ const Header = () => {
             <header className="header">
                 <div className="wrapper">
                     <div className="header-line">
-                        <a href="#" className="logo">netflixroulette</a>
+                        <Link to="/" className="logo">netflixroulette</Link>
                         <button className="button button_reverse" onClick={handleClick}>+ ADD MOVIE</button>
                     </div>
-                    <SearchBar />
+                    <SearchBar props={props.props} />
                 </div>
             </header>
             {isModalOpen && <EditMovieModal description={description} handleClick={handleClick} />}

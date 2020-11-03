@@ -1,0 +1,31 @@
+@import './variables.scss';
+
+.not_found {
+    height: 100vh;
+    background-color: $color-grey-dark;
+    font-size: 48px;
+
+    .not_found_header{
+        padding: 20px;
+    }
+
+    .not_found_main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+
+        h2 {
+            color: white;
+            span {
+                color:$color-brand;
+            }
+        }
+    }
+}
+
+.no-movies {
+    background-color: $color-grey-dark;
+    margin-top: -100px;
+    height: 60vh;
+}

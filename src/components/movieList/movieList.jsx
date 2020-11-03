@@ -4,18 +4,19 @@ import { loadAllMovies, setSelectedIndex } from '../../redux/actions';
 import Tabs from './movieTabs/index';
 import MovieFilter from '../movieFilter/index';
 import Movie from './movie/index';
-import CheckMovie from '../common/index';
 import movie_founded from './styles/movie_founded';
 import movies_list from './movies_list';
 
 const MovieList = (props) => {
     const [isBottom, setIsBottom] = useState(false);
+    const { props: { match: { path } } } = props;
 
     useEffect(() => {
-        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
+        const searchTerm = props.props.location.pathname.slice(15);
+        props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, props.offset));
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [path]);
 
     useEffect(() => {
         if (isBottom) {
@@ -53,27 +54,25 @@ const MovieList = (props) => {
         sortByTabClick(e);
     };
 
-    const { openDetailsPage } = props;
     return (
         <main>
             <div className="wrapper">
-                <CheckMovie>
-                    <div className="sort-line">
-                        <Tabs
-                            handleTabClick={handleTabClick}
-                            selectedTabIndex={props.selectedTabIndex}
-                        />
-                        <MovieFilter
-                            handleChange={handleChange}
-                        />
-                    </div>
-                    <p className="sort-line__movies-num">{`${props.movies && props.movies.length} movies found`}</p>
-                    <div className="movies-list">
-                        {
-                            props.movies.length && props.movies.map(movie => <Movie key={movie.id} description={movie} openDetailsPage={openDetailsPage} />)
-                        }
-                    </div>
-                </CheckMovie>
+                <div className="sort-line">
+                    <Tabs
+                        handleTabClick={handleTabClick}
+                        selectedTabIndex={props.selectedTabIndex}
+                    />
+                    <MovieFilter
+                        handleChange={handleChange}
+                    />
+                </div>
+                {Boolean(props.movies.length) && <p className="sort-line__movies-num">{`${props.movies && props.movies.length} movies found`}</p>}
+                {Boolean(!props.movies.length) && <h2 style={{ textAlign: 'center', marginTop: '100px' }}>Movies not found</h2>}
+                <div className="movies-list">
+                    {
+                        Boolean(props.movies.length) && props.movies.map(movie => <Movie key={movie.id} description={movie} />)
+                    }
+                </div>
             </div>
         </main>
     )

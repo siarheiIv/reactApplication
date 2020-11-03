@@ -1,7 +1,8 @@
-import { GET_ALL_FILMS_FOR_RENDER, SELECTED_TAB_INDEX, UPDATE_SEARCH_TERM, ADD_MOVIE, UPDATE_MOVIE, OFFSET_COUNTER } from '../actions';
+import { GET_ALL_FILMS_FOR_RENDER, SELECTED_TAB_INDEX, UPDATE_SEARCH_TERM, ADD_MOVIE, UPDATE_MOVIE, GET_MOVIE } from '../actions';
 
 const initialState = {
     movies: [],
+    movieDetails: {},
     sortBy: '',
     selectedTabIndex: 0,
     searchTerm: '',
@@ -16,6 +17,8 @@ const homePage = (state = initialState, action) => {
             return { ...state, movies: movieList, sortBy: action.sortBy, searchTerm: action.searchTerm, filter: action.filter, offset: action.offset };
         case SELECTED_TAB_INDEX:
             return { ...state, selectedTabIndex: action.payload };
+        case GET_MOVIE:
+            return { ...state, movieDetails: action.data };
         case UPDATE_SEARCH_TERM:
             return { ...state, searchTerm: action.payload };
         case ADD_MOVIE:

@@ -6,6 +6,7 @@ export const UPDATE_SEARCH_TERM = 'UPDATE_SEARCH_TERM';
 export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
 export const OFFSET_COUNTER = 'OFFSET_COUNTER';
+export const GET_MOVIE = 'GET_MOVIE';
 
 export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset, shouldUpdateState) => ({
     type: GET_ALL_FILMS_FOR_RENDER,
@@ -14,7 +15,12 @@ export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset, shou
     sortBy,
     filter,
     offset,
-    shouldUpdateState
+    shouldUpdateState,
+});
+
+export const getFilmById = (data) => ({
+    type: GET_MOVIE,
+    data,
 });
 
 export const setSelectedIndex = data => ({
@@ -46,6 +52,15 @@ export const loadAllMovies = (title, sortBy, filter, offset, shouldUpdateState) 
         const { data } = await fetch(`http://localhost:5000/movies?&limit=9&sortOrder=asc${offset ? `&offset=${offset}` : '&offset=0'}${title ? `&limit=3500&search=${title}&searchBy=title` : ''}${sortBy === 'title' ? '&sortBy=title' : sortBy === 'rating' ? '&sortBy=vote_average' : '&sortBy=release_date'}${filter ? `&filter=${filter}` : ''}`)
             .then((resp) => resp.json());
         store.dispatch(getFilmsForRender(data, title, sortBy, filter, offset, shouldUpdateState));
+    } catch (error) {
+        console.error();
+    }
+};
+
+export const getMovieById = (id) => async dispatch => {
+    try {
+        const data = await fetch(`http://localhost:5000/movies/${id}`).then(response => response.json());
+        store.dispatch(getFilmById(data));
     } catch (error) {
         console.error();
     }

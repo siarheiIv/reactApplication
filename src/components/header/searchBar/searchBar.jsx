@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loadAllMovies, updateSearchTerm } from '../../../redux/actions';
 import movie_search from './search_bar.scss';
 
 const SearchBar = (props) => {
+    const { props: { match: { path } } } = props;
+    const [term, setTerm] = useState('');
+    console.log(term)
+    // useEffect(() => {
+    //     setTerm('');
+    // }, [])
     const handleSearch = (e) => {
         e.preventDefault();
-        props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset));
+        props.props.history.push(`/search/Search%20${term}`);
+        //props.dispatch(loadAllMovies(path === '/' ? '' : props.searchTerm, props.sortBy, props.filter, props.offset, false, true));
     }
     const handleSearchTerm = (e) => {
-        props.dispatch(updateSearchTerm(e.target.value));
+        // props.dispatch(updateSearchTerm(e.target.value));
+        setTerm(e.target.value);
     }
     return (
         <div className="movie-search">
@@ -28,6 +36,7 @@ const mapStateToProps = (store) => {
         sortBy: store.homePage.sortBy,
         filter: store.homePage.filter,
         offset: store.homePage.offset,
+        movies: store.homePage.movies,
     }
 };
 
