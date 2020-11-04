@@ -6,24 +6,23 @@ import movie_search from './search_bar.scss';
 const SearchBar = (props) => {
     const { props: { match: { path } } } = props;
     const [term, setTerm] = useState('');
-    console.log(term)
-    // useEffect(() => {
-    //     setTerm('');
-    // }, [])
+    useEffect(() => {
+        if (path === '/') {
+            setTerm('');
+        }
+    }, [path])
     const handleSearch = (e) => {
         e.preventDefault();
-        props.props.history.push(`/search/Search%20${term}`);
-        //props.dispatch(loadAllMovies(path === '/' ? '' : props.searchTerm, props.sortBy, props.filter, props.offset, false, true));
+        props.props.history.push(term === '' ? '/' : `/search/Search%20${term}`);
     }
     const handleSearchTerm = (e) => {
-        // props.dispatch(updateSearchTerm(e.target.value));
         setTerm(e.target.value);
     }
     return (
         <div className="movie-search">
             <h1>Find your movie</h1>
             <form className="movie-search__buttons-line" autoComplete="off" onSubmit={(e) => handleSearch(e)}>
-                <input type="text" name="movie" className="movie-search__input" onChange={(e) => handleSearchTerm(e)} />
+                <input type="text" name="movie" value={term} className="movie-search__input" onChange={(e) => handleSearchTerm(e)} />
                 <input className="button" type="submit" value="Search" />
             </form>
         </div>

@@ -9,14 +9,14 @@ import movies_list from './movies_list';
 
 const MovieList = (props) => {
     const [isBottom, setIsBottom] = useState(false);
-    const { props: { match: { path } } } = props;
+    const { props: { location: { pathname } } } = props;
 
     useEffect(() => {
-        const searchTerm = props.props.location.pathname.slice(15);
+        const searchTerm = pathname.slice(15);
         props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, props.offset));
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [path]);
+    }, [pathname]);
 
     useEffect(() => {
         if (isBottom) {
