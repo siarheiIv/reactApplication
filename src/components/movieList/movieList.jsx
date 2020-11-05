@@ -12,21 +12,24 @@ const MovieList = (props) => {
     const { props: { location: { pathname } } } = props;
 
     useEffect(() => {
-        const searchTerm = pathname.slice(15);
-        props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, props.offset));
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const searchTerm = pathname.slice(15);
+        props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, 0, true));
     }, [pathname]);
 
     useEffect(() => {
         if (isBottom) {
             props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 9));
-            setIsBottom(false);
         }
+        setIsBottom(false);
     }, [isBottom]);
 
     const handleScroll = () => {
-        if ((window.pageYOffset + window.innerHeight + 100) > document.documentElement.scrollHeight) {
+        if ((window.pageYOffset + window.innerHeight) === document.documentElement.scrollHeight) {
             setIsBottom(true);
         }
     };
