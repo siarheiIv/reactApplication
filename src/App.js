@@ -15,9 +15,7 @@ const App = () => {
                 <Switch>
                     <Route exact path='/' render={props => <HomePage props={props} />} />
                     <Route path='/search' render={props => <HomePage props={props} />} />
-                    {/* <Route path='/search' render={props => <SearchResultPage props={props} />} /> */}
                     <Route path='/film/:id' children={props => <FilmPage props={props} />} />
-                    {/* <Route path='/no-movies-found' render={props => <NoMoviesFoundPage props={props} />} /> */}
                     <Route path='*' component={NotFoundPage} />
                 </Switch>
             </Router>

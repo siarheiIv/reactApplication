@@ -10,7 +10,7 @@ const initialState = {
     offset: 0,
 };
 
-const homePage = (state = initialState, action) => {
+export const homePage = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_FILMS_FOR_RENDER:
             const movieList = (state.offset === 0 && action.offset !== 9) || action.shouldUpdateState ? action.data : state.offset === action.offset ? state.movies : [...state.movies, ...action.data];
@@ -31,5 +31,5 @@ const homePage = (state = initialState, action) => {
     }
 };
 
-export default homePage;
+// export default homePage;
 

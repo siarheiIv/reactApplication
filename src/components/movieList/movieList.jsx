@@ -10,6 +10,7 @@ import movies_list from './movies_list';
 const MovieList = (props) => {
     const [isBottom, setIsBottom] = useState(false);
     const { props: { location: { pathname } } } = props;
+    console.log(props.movies)
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);

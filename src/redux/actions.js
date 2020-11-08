@@ -5,7 +5,6 @@ export const SELECTED_TAB_INDEX = 'SELECTED_TAB_INDEX';
 export const UPDATE_SEARCH_TERM = 'UPDATE_SEARCH_TERM';
 export const ADD_MOVIE = 'ADD_MOVIE';
 export const UPDATE_MOVIE = 'UPDATE_MOVIE';
-export const OFFSET_COUNTER = 'OFFSET_COUNTER';
 export const GET_MOVIE = 'GET_MOVIE';
 
 export const getFilmsForRender = (data, searchTerm, sortBy, filter, offset, shouldUpdateState) => ({
@@ -26,9 +25,6 @@ export const getFilmById = (data) => ({
 export const setSelectedIndex = data => ({
     type: SELECTED_TAB_INDEX,
     payload: data
-});
-export const setOffsetCounter = () => ({
-    type: OFFSET_COUNTER
 });
 
 export const updateSearchTerm = data => ({

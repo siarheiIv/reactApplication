@@ -57,6 +57,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="title"
                             type="text"
+                            id="title"
                         />
                         <ErrorMessage name="title" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>
@@ -66,6 +67,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="release_date"
                             type="date"
+                            id="release_date"
                         />
                         <ErrorMessage name="release_date" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>
@@ -75,6 +77,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="poster_path"
                             type="text"
+                            id="poster_path"
                         />
                         <ErrorMessage name="poster_path" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>
@@ -107,6 +110,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="overview"
                             type="text"
+                            id="overview"
                         />
                         <ErrorMessage name="overview" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>
@@ -116,6 +120,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="vote_average"
                             type="text"
+                            id="vote_average"
                         />
                         <ErrorMessage name="vote_average" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>
@@ -125,6 +130,7 @@ const EditMovieModal = (props) => {
                             autoComplete="off"
                             name="runtime"
                             type="text"
+                            id="runtime"
                         />
                         <ErrorMessage name="runtime" render={msg => <div className="error_message" >{msg}</div>} />
                     </div>

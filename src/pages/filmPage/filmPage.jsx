@@ -4,7 +4,6 @@ import MovieDetails from '../../components/movieDetails/index';
 import MovieList from '../../components/movieList/index';
 
 const FilmPage = (props) => {
-    console.log(props)
     return (
         <Fragment>
             <MovieDetails />
