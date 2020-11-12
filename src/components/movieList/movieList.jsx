@@ -4,13 +4,11 @@ import { loadAllMovies, setSelectedIndex } from '../../redux/actions';
 import Tabs from './movieTabs/index';
 import MovieFilter from '../movieFilter/index';
 import Movie from './movie/index';
-import movie_founded from './styles/movie_founded';
-import movies_list from './movies_list';
+import { useRouter } from 'next/router';
 
 const MovieList = (props) => {
     const [isBottom, setIsBottom] = useState(false);
-    const { props: { location: { pathname } } } = props;
-    console.log(props.movies)
+    const router = useRouter();
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -18,9 +16,9 @@ const MovieList = (props) => {
     }, []);
 
     useEffect(() => {
-        const searchTerm = pathname.slice(15);
+        const searchTerm = router.asPath.slice(8);
         props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, 0, true));
-    }, [pathname]);
+    }, [router.asPath]);
 
     useEffect(() => {
         if (isBottom) {

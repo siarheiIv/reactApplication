@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import EditMovieModal from '../editMovieModal/index';
 import DeleteMovieModal from '../deleteMovieModal/index';
-import edit_movie_menu from './edit_movie_menu.scss'
 
 const EditMovieMenu = (props) => {
     const [editModal, setEditModal] = useState(false);

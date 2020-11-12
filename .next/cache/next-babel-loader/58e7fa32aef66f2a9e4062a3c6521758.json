@@ -1,0 +1,1 @@
+{"ast":null,"code":"import MovieList from './movieList';\nexport default MovieList;","map":null,"metadata":{},"sourceType":"module"}

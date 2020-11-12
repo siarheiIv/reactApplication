@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default function Index() {\n  return /*#__PURE__*/React.createElement(\"div\", null, \"Hello\");\n}","map":null,"metadata":{},"sourceType":"module"}

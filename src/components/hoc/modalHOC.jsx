@@ -1,6 +1,4 @@
 import React, { useRef } from 'react';
-import modal_movie from '../../styles/modal_movie.scss';
-import button from '../../styles/button.scss';
 
 const ModalHOC = (WrappedComponent) => {
 

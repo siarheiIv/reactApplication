@@ -1,5 +1,4 @@
 import React from 'react';
-import movie_filter from './movie_filter.scss';
 
 const MovieFilter = (props) => {
     return (

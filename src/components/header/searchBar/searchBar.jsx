@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loadAllMovies, updateSearchTerm } from '../../../redux/actions';
-import movie_search from './search_bar.scss';
+import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 const SearchBar = (props) => {
-    const { props: { match: { path } } } = props;
-    const [term, setTerm] = useState('');
+    const router = useRouter();
+    const [term, setTerm] = useState(props.searchTerm);
+
     useEffect(() => {
-        if (path === '/') {
+        setTerm(decodeURI(props.searchTerm));
+    }, [props.searchTerm])
+
+    useEffect(() => {
+        if (router.asPath === '/') {
             setTerm('');
         }
-    }, [path])
+    }, [router.asPath])
+
     const handleSearch = (e) => {
         e.preventDefault();
-        props.props.history.push(term === '' ? '/' : `/search/Search%20${term}`);
+        Router.push(term === '' ? '/' : `/search/${term}`)
     }
     const handleSearchTerm = (e) => {
         setTerm(e.target.value);

@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import SearchBar from './searchBar/searchBar';
 import EditMovieModal from '../movieList/editMovieModal/index';
-import { Link } from 'react-router-dom';
-import header from './header.scss';
+import Link from 'next/link';
 
 const description = {
     genres: [],
@@ -27,7 +26,7 @@ const Header = (props) => {
             <header className="header">
                 <div className="wrapper">
                     <div className="header-line">
-                        <Link to="/" className="logo">netflixroulette</Link>
+                        <Link href="/"><div className="logo">netflixroulette</div></Link>
                         <button className="button button_reverse" onClick={handleClick}>+ ADD MOVIE</button>
                     </div>
                     <SearchBar props={props.props} />

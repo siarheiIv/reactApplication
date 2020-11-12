@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import chevron from '../../styles/img/chevron.png';
+// import chevron from '../../styles/img/chevron.png';
 import { getMovieById } from '../../redux/actions';
 import { store } from '../../redux/store';
 import { connect } from 'react-redux';
-import { useParams } from "react-router-dom";
-import movie_details from './movie_details.scss';
+
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const MovieDetails = (props) => {
-    let { id } = useParams();
+    const router = useRouter();
+    const { id } = router.query;
+
     useEffect(() => {
         store.dispatch(getMovieById(id));
     }, [id]);
@@ -17,9 +20,9 @@ const MovieDetails = (props) => {
             <div className="description_container">
                 <div className="wrapper">
                     <div className="description_logo">
-                        <a href="#" className="logo">netflixroulette</a>
+                        <Link href="/"><a href="#" className="logo">netflixroulette</a></Link>
                         <a href="#/" >
-                            <input type="image" src={chevron} />
+                            {/* <input type="image" src={chevron} /> */}
                         </a>
                     </div>
                     {(<div className="description_body">

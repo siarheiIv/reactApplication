@@ -1,11 +1,11 @@
 import React from 'react';
-import footer from './footer.scss';
+import Link from 'next/link';
 
 const Footer = () => {
     return (
         <footer className="footer">
             <div className="wrapper">
-                <a href="#" className="logo">netflixroulette</a>
+                <Link href="/"><a className="logo">netflixroulette</a></Link>
             </div>
         </footer>
     )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import EditMovieMenu from '../editMovieMenu/index';
-import movie_edit from './movie_edit.scss';
 
 const EditMovie = (props) => {
 
