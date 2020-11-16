@@ -1,35 +1,53 @@
-import { GET_ALL_FILMS_FOR_RENDER, SELECTED_TAB_INDEX, UPDATE_SEARCH_TERM, ADD_MOVIE, UPDATE_MOVIE, GET_MOVIE } from '../actions';
+import {
+  GET_ALL_FILMS_FOR_RENDER,
+  SELECTED_TAB_INDEX,
+  UPDATE_SEARCH_TERM,
+  ADD_MOVIE,
+  UPDATE_MOVIE,
+  GET_MOVIE,
+} from '../actions';
 
 const initialState = {
-    movies: [],
-    movieDetails: {},
-    sortBy: '',
-    selectedTabIndex: 0,
-    searchTerm: '',
-    filter: '',
-    offset: 0,
+  movies: [],
+  movieDetails: {},
+  sortBy: '',
+  selectedTabIndex: 0,
+  searchTerm: '',
+  filter: '',
+  offset: 0,
 };
 
-export const homePage = (state = initialState, action) => {
-    switch (action.type) {
-        case GET_ALL_FILMS_FOR_RENDER:
-            const movieList = (state.offset === 0 && action.offset !== 9) || action.shouldUpdateState ? action.data : state.offset === action.offset ? state.movies : [...state.movies, ...action.data];
-            return { ...state, movies: movieList, sortBy: action.sortBy, searchTerm: action.searchTerm, filter: action.filter, offset: action.offset };
-        case SELECTED_TAB_INDEX:
-            return { ...state, selectedTabIndex: action.payload };
-        case GET_MOVIE:
-            return { ...state, movieDetails: action.data };
-        case UPDATE_SEARCH_TERM:
-            return { ...state, searchTerm: action.payload };
-        case ADD_MOVIE:
-            return { ...state, movies: [action.payload, ...state.movies] };
-        case UPDATE_MOVIE:
-            const updatedList = state.movies.map(movie => movie.id === action.id ? action.payload : movie)
-            return { ...state, movies: updatedList };
-        default:
-            return state;
-    }
+const homePage = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_FILMS_FOR_RENDER:
+      return {
+        ...state,
+        movies: (state.offset === 0 && action.offset !== 9) || action.shouldUpdateState
+          ? action.data : state.offset === action.offset
+            ? state.movies : [...state.movies, ...action.data],
+        sortBy: action.sortBy,
+        searchTerm: action.searchTerm,
+        filter: action.filter,
+        offset: action.offset,
+      };
+    case SELECTED_TAB_INDEX:
+      return { ...state, selectedTabIndex: action.payload };
+    case GET_MOVIE:
+      return { ...state, movieDetails: action.data };
+    case UPDATE_SEARCH_TERM:
+      return { ...state, searchTerm: action.payload };
+    case ADD_MOVIE:
+      return { ...state, movies: [action.payload, ...state.movies] };
+    case UPDATE_MOVIE:
+      return {
+        ...state,
+        movies: state.movies.map((movie) => (
+          movie.id === action.id ? action.payload : movie
+        )),
+      };
+    default:
+      return state;
+  }
 };
 
-// export default homePage;
-
+export default homePage;

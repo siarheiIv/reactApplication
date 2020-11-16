@@ -1,19 +1,17 @@
 import React, { useRef } from 'react';
 
-const ModalHOC = (WrappedComponent) => {
+const ModalHOC = (WrappedComponent) => function newMovieModal(props) {
+  const modalRef = useRef('');
+  const { handleClick, description } = props;
+  // const closeModal = (e) => {
+  //     if (modalRef.current.contains(e.target)) {
+  //         return;
+  //     } else {
+  //         handleClick();
+  //     }
+  // }
 
-    return function newMovieModal(props) {
-        const modalRef = useRef('');
-        const { handleClick, description } = props;
-        // const closeModal = (e) => {
-        //     if (modalRef.current.contains(e.target)) {
-        //         return;
-        //     } else {
-        //         handleClick();
-        //     }
-        // }
-
-        return (
+  return (
             // <div className="modal_overlay" onClick={(e) => closeModal(e)}>
             <div className="modal_overlay">
                 <div ref={modalRef} className="modal_body">
@@ -23,8 +21,7 @@ const ModalHOC = (WrappedComponent) => {
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+  );
+};
 
 export default ModalHOC;

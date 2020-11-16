@@ -3,24 +3,23 @@ import EditMovieModal from '../editMovieModal/index';
 import DeleteMovieModal from '../deleteMovieModal/index';
 
 const EditMovieMenu = (props) => {
-    const [editModal, setEditModal] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
-    const handleSelect = (e) => {
-        if (e.target.dataset.name === "editModal") {
-            setEditModal(!editModal);
-        } else {
-            setDeleteModal(true);
-        }
+  const handleSelect = (e) => {
+    if (e.target.dataset.name === 'editModal') {
+      setEditModal(!editModal);
+    } else {
+      setDeleteModal(true);
+    }
+  };
 
-    };
+  const { handleClick, description } = props;
 
-    const { handleClick, description } = props;
-
-    return (
+  return (
         <React.Fragment>
-            {!editModal && !deleteModal &&
-                (<div className="movie_edit_menu" tabIndex={0}>
+            {!editModal && !deleteModal
+                && (<div className="movie_edit_menu" tabIndex={0}>
                     <span className="movie_edit_menu_close" onClick={handleClick} ></span>
                     <div className="movie_edit_menu_item">
                         <span data-name="editModal" onClick={(e) => handleSelect(e)}>Edit</span>
@@ -31,9 +30,10 @@ const EditMovieMenu = (props) => {
                 </div>)
             }
             {editModal && <EditMovieModal handleClick={handleClick} description={description} />}
-            {deleteModal && <DeleteMovieModal handleClick={handleClick} description={description} />}
+            {deleteModal
+            && <DeleteMovieModal handleClick={handleClick} description={description} />}
         </React.Fragment>
-    )
-}
+  );
+};
 
 export default EditMovieMenu;

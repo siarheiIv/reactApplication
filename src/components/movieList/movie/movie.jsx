@@ -3,8 +3,8 @@ import Link from 'next/link';
 import EditMovie from '../editMovie/index';
 
 const Movie = (props) => {
-    const { description } = props;
-    return (
+  const { description } = props;
+  return (
         <article className="movie">
             <Link href={`/film/${description.id}`}>
                 <img src={description.poster_path} alt="" className="movie__image" />
@@ -17,7 +17,7 @@ const Movie = (props) => {
                 <p className="movie__year">{description.release_date.slice(0, 4)}</p>
             </div>
         </article>
-    )
-}
+  );
+};
 
 export default Movie;

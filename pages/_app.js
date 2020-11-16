@@ -2,7 +2,6 @@ import React from 'react';
 import '../src/styles/base.scss';
 import '../src/styles/button.scss';
 import '../src/styles/logo.scss';
-import '../src/styles/main.scss';
 import '../src/styles/normalize.scss';
 import '../src/styles/modal_movie.scss';
 import '../src/styles/not_found.scss';
@@ -19,8 +18,6 @@ import '../src/components/movieList/editMovie/movie_edit.scss';
 import '../src/components/movieList/movie/movie.scss';
 import '../src/components/movieList/movies_list.scss';
 
-
-
 export default function MyApp({ Component, pageProps }) {
-    return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }

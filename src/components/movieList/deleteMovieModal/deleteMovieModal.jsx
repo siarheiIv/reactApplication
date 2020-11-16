@@ -1,17 +1,17 @@
 import React from 'react';
 import ModalHOC from '../../hoc/modalHOC';
 import { deleteMovie } from '../../../redux/actions';
-import { store } from '../../../redux/store';
+import store from '../../../redux/store';
 
 const DeleteMovieModal = (props) => {
-    const { description, handleClick } = props;
+  const { description, handleClick } = props;
 
-    const handleDeleteMovie = () => {
-        store.dispatch(deleteMovie(description.id));
-        handleClick();
-    }
+  const handleDeleteMovie = () => {
+    store.dispatch(deleteMovie(description.id));
+    handleClick();
+  };
 
-    return (
+  return (
         <React.Fragment>
             <h2>Delete Movie</h2>
             <div className="modal_field">
@@ -22,7 +22,7 @@ const DeleteMovieModal = (props) => {
                 <button className="button" onClick={handleDeleteMovie}>Confirm</button>
             </div>
         </React.Fragment>
-    )
-}
+  );
+};
 
 export default ModalHOC(DeleteMovieModal);

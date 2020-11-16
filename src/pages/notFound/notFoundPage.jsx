@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link';
 
-const NotFoundPage = () => {
-    return (
+const NotFoundPage = () => (
         <Fragment>
             <div className="not_found">
                 <div className="not_found_header">
@@ -13,7 +12,6 @@ const NotFoundPage = () => {
                 </div>
             </div>
         </Fragment>
-    )
-}
+);
 
 export default NotFoundPage;

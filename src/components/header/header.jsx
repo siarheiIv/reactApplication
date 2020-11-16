@@ -1,27 +1,27 @@
 import React, { useState, useCallback } from 'react';
+import Link from 'next/link';
 import SearchBar from './searchBar/searchBar';
 import EditMovieModal from '../movieList/editMovieModal/index';
-import Link from 'next/link';
 
 const description = {
-    genres: [],
-    id: Math.random(),
-    overview: '',
-    poster_path: '',
-    release_date: '',
-    runtime: '',
-    title: '',
-    vote_average: '',
+  genres: [],
+  id: Math.random(),
+  overview: '',
+  poster_path: '',
+  release_date: '',
+  runtime: '',
+  title: '',
+  vote_average: '',
 };
 
 const Header = (props) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleClick = useCallback(() => {
-        setIsModalOpen(!isModalOpen);
-    }, [isModalOpen]);
+  const handleClick = useCallback(() => {
+    setIsModalOpen(!isModalOpen);
+  }, [isModalOpen]);
 
-    return (
+  return (
         <React.Fragment>
             <header className="header">
                 <div className="wrapper">
@@ -34,7 +34,7 @@ const Header = (props) => {
             </header>
             {isModalOpen && <EditMovieModal description={description} handleClick={handleClick} />}
         </React.Fragment>
-    )
-}
+  );
+};
 
 export default Header;

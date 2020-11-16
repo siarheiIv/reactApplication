@@ -1,62 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import { loadAllMovies, setSelectedIndex } from '../../redux/actions';
 import Tabs from './movieTabs/index';
 import MovieFilter from '../movieFilter/index';
 import Movie from './movie/index';
-import { useRouter } from 'next/router';
 
 const MovieList = (props) => {
-    const [isBottom, setIsBottom] = useState(false);
-    const router = useRouter();
+  const [isBottom, setIsBottom] = useState(false);
+  const router = useRouter();
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  const handleScroll = () => {
+    if ((window.pageYOffset + window.innerHeight) === document.documentElement.scrollHeight) {
+      setIsBottom(true);
+    }
+  };
 
-    useEffect(() => {
-        const searchTerm = router.asPath.slice(8);
-        props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, 0, true));
-    }, [router.asPath]);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        if (isBottom) {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 9));
-        }
-        setIsBottom(false);
-    }, [isBottom]);
+  useEffect(() => {
+    const searchTerm = router.asPath.slice(8);
+    props.dispatch(loadAllMovies(searchTerm, props.sortBy, props.filter, 0, true));
+  }, [router.asPath]);
 
-    const handleScroll = () => {
-        if ((window.pageYOffset + window.innerHeight) === document.documentElement.scrollHeight) {
-            setIsBottom(true);
-        }
-    };
+  useEffect(() => {
+    if (isBottom) {
+      props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, props.filter, props.offset + 9));
+    }
+    setIsBottom(false);
+  }, [isBottom]);
 
-    const sortByTabClick = (e) => {
-        if (e.target.dataset.tab === 'all') {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', 0, true));
-        } else {
-            props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab, 0, true));
-        }
-    };
+  const sortByTabClick = (e) => {
+    if (e.target.dataset.tab === 'all') {
+      props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, '', 0, true));
+    } else {
+      props.dispatch(loadAllMovies(props.searchTerm, props.sortBy, e.target.dataset.tab, 0, true));
+    }
+  };
 
-    const handleChange = (e) => {
-        if (e && e.target.options[e.target.selectedIndex].value === 'title') {
-            props.dispatch(loadAllMovies(props.searchTerm, 'title', props.filter, 0, true));
-        } else if (e && e.target.options[e.target.selectedIndex].value === 'date') {
-            props.dispatch(loadAllMovies(props.searchTerm, 'date', props.filter, 0, true));
-        } else {
-            props.dispatch(loadAllMovies(props.searchTerm, 'rating', props.filter, 0, true));
-        }
-    };
+  const handleChange = (e) => {
+    if (e && e.target.options[e.target.selectedIndex].value === 'title') {
+      props.dispatch(loadAllMovies(props.searchTerm, 'title', props.filter, 0, true));
+    } else if (e && e.target.options[e.target.selectedIndex].value === 'date') {
+      props.dispatch(loadAllMovies(props.searchTerm, 'date', props.filter, 0, true));
+    } else {
+      props.dispatch(loadAllMovies(props.searchTerm, 'rating', props.filter, 0, true));
+    }
+  };
 
-    const handleTabClick = (e, index) => {
-        props.dispatch(setSelectedIndex(index));
-        sortByTabClick(e);
-    };
+  const handleTabClick = (e, index) => {
+    props.dispatch(setSelectedIndex(index));
+    sortByTabClick(e);
+  };
 
-    return (
+  return (
         <main>
             <div className="wrapper">
                 <div className="sort-line">
@@ -72,23 +72,22 @@ const MovieList = (props) => {
                 {Boolean(!props.movies.length) && <h2 style={{ textAlign: 'center', marginTop: '100px' }}>Movies not found</h2>}
                 <div className="movies-list">
                     {
-                        Boolean(props.movies.length) && props.movies.map(movie => <Movie key={movie.id} description={movie} />)
+                        Boolean(props.movies.length)
+                        && props.movies.map((movie) => <Movie key={movie.id} description={movie} />)
                     }
                 </div>
             </div>
         </main>
-    )
-}
-
-const mapStateToProps = (store) => {
-    return {
-        movies: store.homePage.movies,
-        sortBy: store.homePage.sortBy,
-        selectedTabIndex: store.homePage.selectedTabIndex,
-        searchTerm: store.homePage.searchTerm,
-        filter: store.homePage.filter,
-        offset: store.homePage.offset,
-    }
+  );
 };
+
+const mapStateToProps = (store) => ({
+  movies: store.homePage.movies,
+  sortBy: store.homePage.sortBy,
+  selectedTabIndex: store.homePage.selectedTabIndex,
+  searchTerm: store.homePage.searchTerm,
+  filter: store.homePage.filter,
+  offset: store.homePage.offset,
+});
 
 export default connect(mapStateToProps)(MovieList);

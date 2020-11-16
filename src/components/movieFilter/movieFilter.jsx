@@ -1,7 +1,6 @@
 import React from 'react';
 
-const MovieFilter = (props) => {
-    return (
+const MovieFilter = (props) => (
         <div>
             <label htmlFor="film-sorting">Sort by </label>
             <select name="film-sorting" id="film-sorting" className="film-sorting" onChange={(e) => props.handleChange(e)} >
@@ -10,7 +9,6 @@ const MovieFilter = (props) => {
                 <option value="rating">Rating</option>
             </select>
         </div>
-    )
-}
+);
 
 export default MovieFilter;

@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 // import chevron from '../../styles/img/chevron.png';
-import { getMovieById } from '../../redux/actions';
-import { store } from '../../redux/store';
 import { connect } from 'react-redux';
 
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import store from '../../redux/store';
+import { getMovieById } from '../../redux/actions';
 
 const MovieDetails = (props) => {
-    const router = useRouter();
-    const { id } = router.query;
+  const router = useRouter();
+  const { id } = router.query;
 
-    useEffect(() => {
-        store.dispatch(getMovieById(id));
-    }, [id]);
+  useEffect(() => {
+    store.dispatch(getMovieById(id));
+  }, [id]);
 
-    return (
+  return (
         <div className="description">
             <div className="description_container">
                 <div className="wrapper">
@@ -47,12 +47,10 @@ const MovieDetails = (props) => {
                 </div>
             </div >
         </div>
-    )
-}
-const mapStateToProps = (store) => {
-    return {
-        movieDetails: store.homePage.movieDetails,
-    }
+  );
 };
+const mapStateToProps = (store) => ({
+  movieDetails: store.homePage.movieDetails,
+});
 
 export default connect(mapStateToProps)(MovieDetails);
